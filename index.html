@@ -199,7 +199,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/05/NIR-FUSION/" class="post-title-link" itemprop="url">NIR融合系列</a>
+            <a href="/2020/03/05/NIR-FUSION/" class="post-title-link" itemprop="url">RGB-NIR图像融合</a>
         </h1>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 13:21:13" itemprop="dateModified" datetime="2020-03-06T13:21:13+08:00">2020-03-06</time>
+                <time title="修改时间：2020-03-06 15:23:47" itemprop="dateModified" datetime="2020-03-06T15:23:47+08:00">2020-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,12 +229,26 @@
             </span>
 
           
-            <span id="/2020/03/05/NIR-FUSION/" class="post-meta-item leancloud_visitors" data-flag-title="NIR融合系列" title="阅读次数">
+            <span id="/2020/03/05/NIR-FUSION/" class="post-meta-item leancloud_visitors" data-flag-title="RGB-NIR图像融合" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>397</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -246,11 +260,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><a href="http://matthewalunbrown.com/nirscene/nirscene.html" target="_blank" rel="noopener">RGB-NIR Scene Dataset</a></p>
-<h3 id="论文整理"><a href="#论文整理" class="headerlink" title="论文整理"></a>论文整理</h3><h4 id="Adaptive-near-infrared-and-visible-fusion-for-fast-image-enhancement-2019"><a href="#Adaptive-near-infrared-and-visible-fusion-for-fast-image-enhancement-2019" class="headerlink" title="Adaptive near-infrared and visible fusion for fast image enhancement - 2019"></a>Adaptive near-infrared and visible fusion for fast image enhancement - 2019</h4><img src="/2020/03/05/NIR-FUSION/awad.png" class title="awad-illu">
-
-<p>RGB图像转Ycbcr空间，拿出Y层（亮度层）与NIR图像融合。用高通滤波器提取Y和NIR的高频成分，即细节和纹理。用局部对比度估计公式估计Y和NIR的局部对比度，作为细节融合的权重。融合的细节与Y层低频成分相加，最后再还原到RGB图像。</p>
-
+          <p>整理RGB-NIR图像融合算法</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/05/NIR-FUSION/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -319,6 +337,20 @@
               </span>
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>727</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -331,17 +363,14 @@
 
       
           <h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>Hello！你好！こんにちは！안녕하세요！</p>
-<h3 id="Blog的初衷"><a href="#Blog的初衷" class="headerlink" title="Blog的初衷"></a>Blog的初衷</h3><p>现在差不多是2020-03-03-03:03:03，一个看着就很不同寻常的日子和时间。</p>
-<p>其实并不是，现在是很普通的2020-03-05，疫情算是比之前好多了，但是仍然不敢放松警惕。</p>
-<p>虽然但是，不管怎么样，借助<strong>GitHub+Hexo</strong>简单搭建了个人博客，在这里感谢<a href="https://godweiyang.com/2018/04/13/hexo-blog/" target="_blank" rel="noopener">@godweiyang</a>的教程。</p>
-<p>弄个博客的目的，就是可以记录一些生活、学习、工作上的事。原本在CSDN上随便写了点，但是大家都懂的，搁别人炕上，怎么躺都不舒服，不如花点点点时间自己整一个。正好疫情在家，可以一个人安安静静的研究一下这些花里胡哨的东西。有一说一，真香。</p>
-<p>因为是在别人基础上搭建的，以后慢慢自定义。</p>
-<p>同样，希望以后在这里，多总结、多写作、多记录、<del>多吐槽</del>。</p>
-<h3 id="人生吐槽"><a href="#人生吐槽" class="headerlink" title="人生吐槽"></a>人生吐槽</h3><p>大学读的太草率，高考一本过10+分，选择空间稍微有点紧凑，大概是没想开，去读了机械专业。有一说一，难道机械不是男人的浪漫吗。想象中，故事的展开至少是《三傻大闹宝莱坞》这个级别的，用智慧战胜现实。反正结果也挺真实的，是不是男人的浪漫我还不能确定，都是男人倒是真的。等我差不多想通的时候，大三下了，没啥时间了，读研还是就业，猛地就到这个地步了。</p>
-<p>总之在各种因素影响下，选择了考研，跨考计算机。自己也没啥底气，没往高处跑，一直到十月份填志愿才犹犹豫豫选了杭电，双非，但是要是能进也挺好的。后来初试成绩出来也确实是一个双非的成绩，普普通通的面试，然后普普通通的读研。就现在看来，无论是读研，还是选择的专业，还是缘分的与导师和实验室的各位认识，都挺满意的。</p>
-<p>读研一年半，新冠肺炎疫情爆发，社会笼罩在一片阴霾之中。世界各地，坏消息频传，多国损失严重。相传…</p>
-<p>快乐的人生大概就是这么朴实、无华且枯燥。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/1995/09/07/Hello-World/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -480,6 +509,16 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">LSF</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">1k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1 分钟</span>
 </div>
 
         
