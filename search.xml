@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>泊松图像编辑（Possion Image Edit）</title>
+      <link href="/2020/03/09/PossionEdit/"/>
+      <url>/2020/03/09/PossionEdit/</url>
+      
+        <content type="html"><![CDATA[<img src="/2020/03/09/PossionEdit/sample.png" class="" title="example"><p>虽然是2003年的文章了，但是由于其扎实的数学基础和放在至今都极其出色的效果，对每一个图像处理领域的学习者仍然是一篇值得一读的好文章。</p><a id="more"></a><blockquote><p>Poisson Image Editing - 2003</p></blockquote><h2 id="泊松方程"><a href="#泊松方程" class="headerlink" title="泊松方程"></a>泊松方程</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+          <category> 图像处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PossionEdit </tag>
+            
+            <tag> 泊松融合 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>RGB-NIR图像融合</title>
+      <link href="/2020/03/05/NIR-FUSION/"/>
+      <url>/2020/03/05/NIR-FUSION/</url>
+      
+        <content type="html"><![CDATA[<p>整理RGB-NIR图像融合相关内容</p><a id="more"></a><h2 id="融合数据集"><a href="#融合数据集" class="headerlink" title="融合数据集"></a>融合数据集</h2><p><a href="http://matthewalunbrown.com/nirscene/nirscene.html" target="_blank" rel="noopener">RGB-NIR Scene Dataset</a></p><h2 id="NIR相关介绍"><a href="#NIR相关介绍" class="headerlink" title="NIR相关介绍"></a>NIR相关介绍</h2><h3 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h3><p>相关研究做的比较多的作者。</p><blockquote><p><em>C Fredembach</em></p></blockquote><h3 id="NIR特性及获取方法等"><a href="#NIR特性及获取方法等" class="headerlink" title="NIR特性及获取方法等"></a>NIR特性及获取方法等</h3><h4 id="1、Colouring-the-Near-Infrared-2008-Paper"><a href="#1、Colouring-the-Near-Infrared-2008-Paper" class="headerlink" title="1、Colouring the Near-Infrared - 2008 -Paper"></a>1、Colouring the Near-Infrared - 2008 -<a href="https://infoscience.epfl.ch/record/129419/files/IR_colour.pdf" target="_blank" rel="noopener">Paper</a></h4><h4 id="2、Material-based-object-segmentation-using-near-infrared-information-2010-Paper"><a href="#2、Material-based-object-segmentation-using-near-infrared-information-2010-Paper" class="headerlink" title="2、Material-based object segmentation using near-infrared information - 2010 -Paper"></a>2、Material-based object segmentation using near-infrared information - 2010 -<a href="https://infoscience.epfl.ch/record/153245/files/Neda_Salamati_CIC18.pdf" target="_blank" rel="noopener">Paper</a></h4><h4 id="3、Designing-color-filter-arrays-for-the-joint-capture-of-visible-and-near-infrared-images-2009-Paper"><a href="#3、Designing-color-filter-arrays-for-the-joint-capture-of-visible-and-near-infrared-images-2009-Paper" class="headerlink" title="3、Designing color filter arrays for the joint capture of visible and near-infrared images - 2009 -Paper"></a>3、Designing color filter arrays for the joint capture of visible and near-infrared images - 2009 -<a href="http://ivrlwww.epfl.ch/alumni/fredemba/papers/LFVS_ICIP09.pdf" target="_blank" rel="noopener">Paper</a></h4><h4 id="4、Correlation-based-joint-acquisition-and-demosaicing-of-visible-and-near-infrared-images-2011-Paper"><a href="#4、Correlation-based-joint-acquisition-and-demosaicing-of-visible-and-near-infrared-images-2011-Paper" class="headerlink" title="4、Correlation-based joint acquisition and demosaicing of visible and near-infrared images - 2011 -Paper"></a>4、Correlation-based joint acquisition and demosaicing of visible and near-infrared images - 2011 -<a href="https://infoscience.epfl.ch/record/168897/files/SadeghipoorICIP11.pdf" target="_blank" rel="noopener">Paper</a></h4><h2 id="融合算法"><a href="#融合算法" class="headerlink" title="融合算法"></a>融合算法</h2><h3 id="1、Adaptive-near-infrared-and-visible-fusion-for-fast-image-enhancement-2019"><a href="#1、Adaptive-near-infrared-and-visible-fusion-for-fast-image-enhancement-2019" class="headerlink" title="1、Adaptive near-infrared and visible fusion for fast image enhancement - 2019"></a>1、Adaptive near-infrared and visible fusion for fast image enhancement - 2019</h3><img src="/2020/03/05/NIR-FUSION/awad.png" class="" title="awad-illu"><p>RGB图像转Ycbcr空间，拿出Y层（亮度层）与NIR图像融合。用高通滤波器提取Y和NIR的高频成分，即细节和纹理。用局部对比度估计公式估计Y和NIR的局部对比度，作为细节融合的权重。融合的细节与Y层低频成分相加，最后再还原到RGB图像。</p><h3 id="2、Enhancing-Photographs-with-Near-Infrared-Images-2008-CVPR"><a href="#2、Enhancing-Photographs-with-Near-Infrared-Images-2008-CVPR" class="headerlink" title="2、Enhancing Photographs with Near Infrared Images - 2008 CVPR"></a>2、Enhancing Photographs with Near Infrared Images - 2008 CVPR</h3><img src="/2020/03/05/NIR-FUSION/cvpr2008.png" class="" title="cvpr2008"><p>RGB空间转HSV空间，对V层与NIR图像融合。利用Haar小波变换将图像分解到不同频率子带下，分别融合低频成分和高频成分。在低频利用梯度引导做直方图匹配，在高频上对两个图像的子带alpha加权，最后反变换重建融合图像。本文还提到了如何搭建相机环境以获取NIR图像。</p><h3 id="3、RGB–NIR-Image-Enhancement-by-Fusing-Bilateral-and-Weighted-Least-Squares-Filters-2017"><a href="#3、RGB–NIR-Image-Enhancement-by-Fusing-Bilateral-and-Weighted-Least-Squares-Filters-2017" class="headerlink" title="3、RGB–NIR Image Enhancement by Fusing Bilateral and Weighted Least Squares Filters - 2017"></a>3、RGB–NIR Image Enhancement by Fusing Bilateral and Weighted Least Squares Filters - 2017</h3><img src="/2020/03/05/NIR-FUSION/bfwls.png" class="" title="bfwls"><p>RGB空间转Ycbcr空间，对Y层与NIR图像融合。同时使用WLS(加权最小二次滤波器)与BF(双边滤波器)对图像滤波得到低频图像，利用原图与低频差分获取高频信息。计算用两种滤波器提取的NIR图像高频成分，替换Y图像中的高频成分，获得融合图像。</p><h3 id="4、Color-Image-Dehazing-Using-The-Near-infrared-2009"><a href="#4、Color-Image-Dehazing-Using-The-Near-infrared-2009" class="headerlink" title="4、Color Image Dehazing Using The Near-infrared - 2009"></a>4、Color Image Dehazing Using The Near-infrared - 2009</h3><img src="/2020/03/05/NIR-FUSION/wlsmr.png" class="" title="wlsmr"><p>同样将从RGB图像中提取V作为亮度表示。利用WLS(最小二次滤波器)将图像分别到文章中提到的多分辨率表示(<em>multiresolution representation</em>)，这里的多分辨率指图像平滑尺度不同，但是应该没改变图像尺寸。然后同样获得低频成分(<em>approximation images</em>)与高频成分(<em>detail images</em>)，对高频成分按两者较大值融合，低频成分选择V的低频，放弃NIR图像的低频。然后从多分辨率表示重建回融合图像。</p><h3 id="5、Combining-visible-and-near-infrared-images-for-realistic-skin-smoothing-2009"><a href="#5、Combining-visible-and-near-infrared-images-for-realistic-skin-smoothing-2009" class="headerlink" title="5、Combining visible  and near-infrared images for realistic skin smoothing - 2009"></a>5、Combining visible  and near-infrared images for realistic skin smoothing - 2009</h3><img src="/2020/03/05/NIR-FUSION/bf.png" class="" title="bf"><p>本文研究重点在于利用NIR图像对人脸去噪，额，也就是美颜。文章详细探讨了NIR波段对人皮肤的特征、缺陷、构造等不同区域的响应。融合方法依旧是将RGB图像转化到亮度表示Y，利用双边滤波器对图像滤波，得到平滑层，继而得到细节层。直接融合Y的平滑层和NIR图像的细节层就是最终结果，没有自适应的权重。</p><h3 id="6、Near-infrared-guided-color-image-dehazing-2013-ICIP"><a href="#6、Near-infrared-guided-color-image-dehazing-2013-ICIP" class="headerlink" title="6、Near-infrared guided color image dehazing - 2013 ICIP"></a>6、Near-infrared guided color image dehazing - 2013 ICIP</h3><h3 id="7、Near-infrared-fusion-via-color-regularization-for-haze-and-color-distortion-removals-2017"><a href="#7、Near-infrared-fusion-via-color-regularization-for-haze-and-color-distortion-removals-2017" class="headerlink" title="7、Near-infrared fusion via color regularization for haze and color distortion removals - 2017"></a>7、Near-infrared fusion via color regularization for haze and color distortion removals - 2017</h3><h3 id="8、"><a href="#8、" class="headerlink" title="8、"></a>8、</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图像融合 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>时间分割线</title>
+      <link href="/2020/03/05/TimeCut/"/>
+      <url>/2020/03/05/TimeCut/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i0.hdslb.com/bfs/article/4adb9255ada5b97061e610b682b8636764fe50ed.png" alt="时间分割线"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>白平衡算法之Gray Edge</title>
+      <link href="/2019/09/30/GrayEdge/"/>
+      <url>/2019/09/30/GrayEdge/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Gray-Edge假设及其一般性计算框架"><a href="#Gray-Edge假设及其一般性计算框架" class="headerlink" title="Gray Edge假设及其一般性计算框架"></a>Gray Edge假设及其一般性计算框架</h3><p>&emsp;&emsp;有关MaxRGB，GrayWorld算法的回顾，可以参考<a href="/2019/09/30/WB/" title="白平衡算法">白平衡算法</a>。<a href="https://blog.csdn.net/weixin_43194305/article/details/101794682" target="_blank" rel="noopener">CSDN原始发布</a>。</p><h4 id="Gray-Edge假设"><a href="#Gray-Edge假设" class="headerlink" title="Gray Edge假设"></a>Gray Edge假设</h4><p>&emsp;&emsp;MaxRGB，GrayWorld等算法都是基于原始图像的特征提出的。之后，Weijer等人通过观察对立颜色空间的图像颜色导数分布，发现图像的颜色导数在对立颜色空间呈一定规则。这里说到的对立颜色空间是根据颜色对抗学说建立的一个颜色空间，对立颜色空间的获得是从RGB空间做一个变换得到，具体有关对立颜色空间和颜色对抗学说的内容可移步<a href="https://en.wikipedia.org/wiki/Opponent_process" target="_blank" rel="noopener"><strong>维基百科</strong></a>。</p><p>&emsp;&emsp;根据图像颜色在这个空间上的一些特性，Weijer提出了一种新的Gray Edge假说：场景中所有物理表面的平均反射的差分是无色差的。同时，为了兼容几大基本算法，闵可夫斯基范式也被引入，得到了一个更为通用的颜色恒常性计算的算法框架，其最终的数学形式为：</p><p>$$(\int |\frac{\partial^nf^\sigma(X)}{\partial X^n}|^p dX)^{1/p}=ke^{n,p,\sigma}\tag1$$</p><p>其中$f^n=f\otimes G^\sigma$，表示图像$f$与高斯滤波器$G^\sigma$的卷积；$\partial^n/\partial X^n$表示$n$阶导数过程。选择不同的$n,p,\sigma$参数，分别包含了几大基础算法，如下表所示。</p><center><b>Gray Edge框架下的颜色恒常性算法</b></center>| 算法                | 参数                  | 公式                                                     || ------------------- | --------------------- | -------------------------------------------------------- || Gray World          | $e^{0,1,0}$           | $(\int f(X)dX)=ke$                                       || MaxRGB              | $e^{0,\infty,0}$      | $(\int \|f(X)\|^\infty dX)^\frac{1}{\infty}=ke$          || Shades of Gray      | $e^{0,p,0}$           | $(\int \|f(X)\|^p dX)^\frac{1}{p}=ke$                    || Gauss Gray World    | $e^{0,p,\sigma}$      | $(\int \|f^\sigma(X)\|^pdX)^\frac{1}{p}=ke$              || 1st Order Gray Edge | $e^{1,p,\sigma}$      | $(\int \|f^\sigma_X(X)\|^pdX)^\frac{1}{p}=ke$            || max Edge            | $e^{1,\infty,\sigma}$ | $(\int \|f^\sigma_X(X)\|^\infty dX)^\frac{1}{\infty}=ke$ || 2nd Order Gray Edge | $e^{2,p,\sigma}$      | $(\int\|f^\sigma_{XX}(X)\|^pdX)^\frac{1}{p}=ke$          |<p>&emsp;&emsp;当然，即使Gray World假设来源于对立颜色空间，但是所有处理依旧是在RGB颜色空间进行的。Gray Edge的重要意义在于把原来在0阶图像上进行的颜色恒常性计算推广到了高阶上。</p><h4 id="Matlab代码"><a href="#Matlab代码" class="headerlink" title="Matlab代码"></a>Matlab代码</h4><p>以下是自己写的一个简易版的代码，固定了只求1阶导数。</p><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span> = <span class="title">GrayEdge</span><span class="params">(im,p,sigma)</span></span></span><br><span class="line"><span class="comment">% Image should be normalized to 0-1</span></span><br><span class="line"><span class="comment">% n    图像阶数         固定1,这里图像导数的来源有待考证</span></span><br><span class="line"><span class="comment">% p    Minkowski范数    默认6</span></span><br><span class="line"><span class="comment">% alpha 高斯滤波尺度    默认2</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line">out = im;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ~exist(<span class="string">'p'</span>,<span class="string">'var'</span>)</span><br><span class="line">    p=<span class="number">6</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">if</span> ~exist(<span class="string">'alpha'</span>,<span class="string">'var'</span>)</span><br><span class="line">    sigma=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">k = fspecial(<span class="string">'gaussian'</span>,<span class="built_in">floor</span>(sigma*<span class="number">3</span>+<span class="number">0.5</span>),sigma);<span class="comment">%创建高斯模板</span></span><br><span class="line">im_G = imfilter(im,k,<span class="string">'replicate'</span>);<span class="comment">%高斯滤波</span></span><br><span class="line">im_edge = gradient(im_G);<span class="comment">%求一阶图像</span></span><br><span class="line">im_edge = <span class="built_in">abs</span>(im_edge).^p;<span class="comment">%闵可夫斯基p范式</span></span><br><span class="line"></span><br><span class="line">r = im_edge(:,:,<span class="number">1</span>);</span><br><span class="line">g = im_edge(:,:,<span class="number">2</span>);</span><br><span class="line">b = im_edge(:,:,<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">Avg = <span class="built_in">mean</span>(im_edge(:)).^(<span class="number">1</span>/p);<span class="comment">%计算出来的光照颜色</span></span><br><span class="line"></span><br><span class="line">R_avg = mean2(r).^(<span class="number">1</span>/p);<span class="comment">%各通道</span></span><br><span class="line">G_avg = mean2(g).^(<span class="number">1</span>/p);</span><br><span class="line">B_avg = mean2(b).^(<span class="number">1</span>/p);</span><br><span class="line"></span><br><span class="line">k = [R_avg G_avg B_avg]./Avg;<span class="comment">%增益k</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">3</span></span><br><span class="line">out(:,:,<span class="built_in">i</span>) = im(:,:,<span class="built_in">i</span>)/k(<span class="built_in">i</span>);</span><br><span class="line">out(:,:,<span class="built_in">i</span>) = <span class="built_in">min</span>(out(:,:,<span class="built_in">i</span>),<span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><h4 id="结果比较"><a href="#结果比较" class="headerlink" title="结果比较"></a>结果比较</h4><p><img src="https://img-blog.csdnimg.cn/20190930213825195.jpg#pic_center" alt=""></p><h4 id="一般化计算框架"><a href="#一般化计算框架" class="headerlink" title="一般化计算框架"></a>一般化计算框架</h4><p>&emsp;&emsp;针对以上几种方法，在<a href="http://colorconstancy.com/" target="_blank" rel="noopener">Color Constancy</a>网站上给出了一般化框架代码，写的稍微有点复杂，就也没看很仔细，点击<a href="https://sl-m-ssl.xunlei.com/h5/page/download-share/index.html?entry=link&appType=PC&videobtindex=-1&storid=50597fa04d" target="_blank" rel="noopener">源代码下载</a>。</p><h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p>[1]王金华, 李兵, 须德. 图像理解:颜色认知计算[M]. 清华大学出版社, 2013.</p><p>[2] <a href="http://colorconstancy.com/" target="_blank" rel="noopener">Color Constancy</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 白平衡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AWB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>白平衡算法之Gray World、White Patch、SoG</title>
+      <link href="/2019/09/30/WB/"/>
+      <url>/2019/09/30/WB/</url>
+      
+        <content type="html"><![CDATA[<p>开坑记录一下白平衡相关算法，从几个最基本的白平衡算法开始。<a href="https://blog.csdn.net/weixin_43194305/article/details/101758864" target="_blank" rel="noopener">CSDN原始发布</a>。</p><a id="more"></a><h2 id="白平衡算法之Gray-World和White-Patch"><a href="#白平衡算法之Gray-World和White-Patch" class="headerlink" title="白平衡算法之Gray World和White Patch"></a>白平衡算法之Gray World和White Patch</h2><p>&emsp;&emsp;颜色作为物体最基本的属性，在大部分场合对人类视觉而言是一个能够轻而易举捕获的信息。但在数字成像过程中，颜色是一种及其不稳定的图像特征。数字成像时获取的颜色主要依赖三个因素：物体表面光谱反射率、场景中的光照条件和成像器件的对光的灵敏度曲线。人类视觉系统存在一种颜色恒常性功能，能够在不同的光照下自动消除光照的影响，从而获得较稳定和准确的物体颜色。但是成像设备不具备这种特质，因此白平衡算法对成像颜色好坏起到了至关重要的作用。</p><p>&emsp;&emsp;白平衡算法的核心内容就是估计光照。但是从一幅已有图像去估计光照本身就是一个病态问题，因此，现有的白平衡算法基本都是基于一定的假设和先验条件。其中，Gray World和White Patch是两个基于各自假设，简单、实用的白平衡算法。</p><hr><h3 id="White-Patch（MaxRGB）"><a href="#White-Patch（MaxRGB）" class="headerlink" title="White Patch（MaxRGB）"></a>White Patch（MaxRGB）</h3><p>&emsp;&emsp;White Patch假设：图像中，RGB颜色通道的最大响应是由场景中的白色表面引起的。理论上白色表面可以反射场景光照的颜色，因此，RGB通道中最大的值将被作为图像的光照颜色。所以，该算法又被称为MaxRGB算法。其数学形式为：</p><p>$$\max\limits_{x}f(X)=ke\tag1$$</p><p>&emsp;&emsp;其中$X$表示像素点坐标，$k$为用于校准光照的常量，$e$为光照。该最大值是各通道分别计算，而不是必须是一个像素点的三通道最大。这就导致了该算法在很多场合中其实并不适用，因为该算法假设需要在场景中存在一个白色（标准光源下）像素点或者三通道反射率相同的点（灰点）。当场景中没有这样的点的时候，该算法的表现就会比较糟糕。而以后的许多算法也是在找白点上做了各种改进，该算法最大的优点就是简单高效。</p><p>&emsp;&emsp;具体的实现也比较简单，实际用的时候，白点的定义也可以有很多。归一化后可以以1作为最大点，也可以用绿色通道最大值作为最亮点求各个通道的增益系数。</p><h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><ul><li>计算三通道各自最大值$R_{max}$，$G_{max}$，$B_{max}$。</li><li>计算增益，$k=[R_{max},G_{max},B_{max}]./Max$，也可以直接以1或者$G_{max}$作为光照。</li><li>对原图三个通道乘上增益，$R/k,G/k,B/k$。</li></ul><h4 id="Matlab代码"><a href="#Matlab代码" class="headerlink" title="Matlab代码"></a>Matlab代码</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span>=<span class="title">MaxRGB</span><span class="params">(im)</span></span></span><br><span class="line"><span class="comment">% Image should be normalized to 0-1 归一化</span></span><br><span class="line"></span><br><span class="line">R_max = <span class="built_in">max</span>(<span class="built_in">max</span>(im(:,:,<span class="number">1</span>)));</span><br><span class="line">G_max = <span class="built_in">max</span>(<span class="built_in">max</span>(im(:,:,<span class="number">2</span>)));</span><br><span class="line">B_max = <span class="built_in">max</span>(<span class="built_in">max</span>(im(:,:,<span class="number">3</span>)));</span><br><span class="line">Max = <span class="built_in">max</span>(im(:));</span><br><span class="line"></span><br><span class="line">k = [R_max G_max B_max]./Max;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">3</span></span><br><span class="line">    out(:,:,<span class="built_in">i</span>) = im(:,:,<span class="built_in">i</span>)/k(<span class="built_in">i</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p><img src="https://img-blog.csdnimg.cn/20190930135051762.png#pic_center" alt=""></p><hr><h3 id="Gray-World"><a href="#Gray-World" class="headerlink" title="Gray World"></a>Gray World</h3><p>&emsp;&emsp;Gray World假设：场景中所有物理表面的平均反射是无色差的（灰色的）。这也是灰色世界名字的由来，简而言之，Gray World就是将整幅图像的平均颜色作为图像的光照颜色。Gray World的假设条件相比MaxRGB相对宽松，对一般图像适应能力强，同时也很简单，因此得到广泛使用。其缺点是，当图像中颜色比较单一的时候，该法就会失效。对其的改进也是主要基于如何适用于颜色较单一场景的情况，例如对图像分块处理。</p><p>&emsp;&emsp;数学形式如下：</p><p>$$\frac{\int f(X)dX}{\int dX}=ke\tag2$$</p><h4 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h4><ul><li>计算三通道各自平均值$R_{avg}$，$G_{avg}$，$B_{avg}$，整个图像的平均值$ALL_{avg}$作为光源$e$。</li><li>计算增益，$k=[R_{avg},G_{avg},B_{avg}]/ALL_{avg}$，同样的，光源$e$也可以按需求取0.5，$G_{avg}$等。</li><li>对原图三个通道除以增益，$R/k,G/k,B/k$。</li></ul><h4 id="Matlab代码-1"><a href="#Matlab代码-1" class="headerlink" title="Matlab代码"></a>Matlab代码</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span>=<span class="title">GrayWorld</span><span class="params">(im, flag)</span></span></span><br><span class="line"><span class="comment">% Image should be normalized to 0-1 归一化</span></span><br><span class="line"></span><br><span class="line">R_avg = mean2(im(:,:,<span class="number">1</span>));</span><br><span class="line">G_avg = mean2(im(:,:,<span class="number">2</span>));</span><br><span class="line">B_avg = mean2(im(:,:,<span class="number">3</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ~exist(<span class="string">'flag'</span>,<span class="string">'var'</span>)||flag==<span class="number">0</span></span><br><span class="line">    Avg = <span class="number">0.5</span>;</span><br><span class="line"><span class="keyword">elseif</span> flag==<span class="number">1</span></span><br><span class="line">    Avg = mean2(im);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    Avg = G_avg;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">k = [R_avg G_avg B_avg]./Avg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">3</span></span><br><span class="line">out(:,:,<span class="built_in">i</span>) = im(:,:,<span class="built_in">i</span>)/k(<span class="built_in">i</span>);</span><br><span class="line">out(:,:,<span class="built_in">i</span>) = <span class="built_in">min</span>(out(:,:,<span class="built_in">i</span>),<span class="number">1</span>);<span class="comment">%处理一下有可能超出1的值，直接设1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><h4 id="结果-1"><a href="#结果-1" class="headerlink" title="结果"></a>结果</h4><p><img src="https://img-blog.csdnimg.cn/20190930135019800.png#pic_center" alt=""></p><hr><h3 id="SoG-Shades-of-Gray"><a href="#SoG-Shades-of-Gray" class="headerlink" title="SoG(Shades of Gray)"></a>SoG(Shades of Gray)</h3><p>&emsp;&emsp;为了将Gray World更加一般化，Finalayson等人在上式中引入了闵可夫斯基范式(Minkowskinorm)，提出了一种SoG算法。SoG算法利用闵式距离代替简单求平均的方法，其数学形式如下：</p><p>$$(\frac{\int (f(X))^pdX}{\int dX})^{1/p}=ke\tag3$$</p><p>该算法将MaxRGB和GrayWorld算法纳入了同一个计算框架下：</p><ul><li>当$p=1$时，该式就退化为GrayWorld算法，直接求图像平均。</li><li>当$p=\infty$时，该式等价于求$f(X)$最大值，等同于MaxRGB法。</li><li>当$1&lt;p&lt;\infty$时，就是普通的SoG算法，Finalayson等指出，在$p=6$时，算法取得较好的适用性和效果。</li></ul><h4 id="Matlab代码-2"><a href="#Matlab代码-2" class="headerlink" title="Matlab代码"></a>Matlab代码</h4><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span>=<span class="title">SoG</span><span class="params">(im, p)</span></span></span><br><span class="line"><span class="comment">% Image should be normalized to 0-1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ~exist(<span class="string">'p'</span>,<span class="string">'var'</span>)</span><br><span class="line">    p=<span class="number">6</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">imP = im.^p;</span><br><span class="line"></span><br><span class="line">R_avg = mean2(imP(:,:,<span class="number">1</span>)).^(<span class="number">1</span>/p);</span><br><span class="line">G_avg = mean2(imP(:,:,<span class="number">2</span>)).^(<span class="number">1</span>/p);</span><br><span class="line">B_avg = mean2(imP(:,:,<span class="number">3</span>)).^(<span class="number">1</span>/p);</span><br><span class="line"></span><br><span class="line">Avg = mean2(imP).^(<span class="number">1</span>/p);</span><br><span class="line">    </span><br><span class="line">k = [R_avg G_avg B_avg]./Avg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">3</span></span><br><span class="line">out(:,:,<span class="built_in">i</span>) = im(:,:,<span class="built_in">i</span>)/k(<span class="built_in">i</span>);</span><br><span class="line">out(:,:,<span class="built_in">i</span>) = <span class="built_in">min</span>(out(:,:,<span class="built_in">i</span>),<span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><h4 id="结果-2"><a href="#结果-2" class="headerlink" title="结果"></a>结果</h4><p><img src="https://img-blog.csdnimg.cn/20190930134926282.png#pic_center" alt=""></p><h3 id="更加一般化的框架："><a href="#更加一般化的框架：" class="headerlink" title="更加一般化的框架："></a>更加一般化的框架：</h3><a href="/2019/09/30/GrayEdge/" title="GrayEdge">GrayEdge</a><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1]王金华, 李兵, 须德. 图像理解:颜色认知计算[M]. 清华大学出版社, 2013.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 白平衡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AWB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>暗通道先验去雾</title>
+      <link href="/2019/05/05/DarkChannelDehaze/"/>
+      <url>/2019/05/05/DarkChannelDehaze/</url>
+      
+        <content type="html"><![CDATA[<p>本文首发于<a href="https://blog.csdn.net/weixin_43194305/article/details/89206379" target="_blank" rel="noopener">CSDN</a></p><h2 id="暗通道先验"><a href="#暗通道先验" class="headerlink" title="暗通道先验"></a>暗通道先验</h2><p>暗通道先验是基于如下观察，在户外的无雾图像中，在大部分非天空区域，至少有一个通道值是很小一个数或趋近于零。因此，对任意一幅图$J$，给出暗通道$J^{dark}$的表示：<br>$$J^{dark}(X)=\min _{y\in \Omega(x)}(\min _{c\in {r, g, b}}J^c(Y)),\tag 1$$<br>其中两个最小是各通道最小，局部窗口最小。即首先对图像每个像素取三通道中最小值，得到一个单通道图，然后对这个单通道图作最小值滤波就可以得到暗通道图$J^{dark}$。<br>作者将造成这个现象的原因归结为以下三点：</p><ul><li>各类物体的阴影，玻璃</li><li>彩色物体表面，如花草树木，蓝色的水面</li><li>黑色物体表面，如树干，石头等</li></ul><p>正因为自然界总是充满了彩色和阴影，就导致了图像暗通道总是很暗。为了验证这个先验知识，作者统计了大量图片，发现基本都符合这个先验。以下是几幅680*1024的风景图在不同大小滤波窗口下的暗通道图：<img src="https://img-blog.csdnimg.cn/20190411124336347.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190411124400882.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190411124429584.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190411124448455.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br>以上图像基本都符合暗通道先验，由此可见暗通道的普遍性。在暗通道先验的基础上，就可以进行去雾算法的推导。</p><hr><h2 id="雾模型分析"><a href="#雾模型分析" class="headerlink" title="雾模型分析"></a>雾模型分析</h2><p>在计算机视觉和计算机图形领域，一个常用来描述有雾图像的公式表达为：<br>$$I(x)=J(x)t(x)+A(1-t(x))\tag2$$</p><p>其中，$I$表示有雾图像，$J$是要恢复的无雾的图像，$A$是全球大气光成分， $t(x)$为透射率。<br>&#8195;&#8195;在这里主要剖析一下这个式子。对这个式子，本身的理解，大气光成分和图像中的景物本身就是真实存在的。晴天和雾天的区别只是大气光成分的多少，表达在这个式子里就是透射率。晴天的时候大气光成分少，物体反射光的透射率很高，几乎让人感受不到大气光成分的存在。雾天则相反。<br>&#8195;&#8195;放在PS中理解，该模型几乎就是两个图层在不同透明度下的叠加。可以设透明度为$\alpha$。叠加后的图像为$$I=\alpha I_1+(1-\alpha)I_2$$因此，我们假设最大大气光成分为255，可以通过设置不同的透射率来产生不同的有雾图像，同样用上述的图片作实验。<br><img src="https://img-blog.csdnimg.cn/20190411161818601.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br>不过，由于人为选定的$t(x)$在每个像素上都是一致的，所以会丢失景深的感觉。但是已经足以说明雾的生成，和去雾的思路。我们已知雾图，由式（2）去求解无雾的图像。同时，我们用无雾图的暗通道和人为生成$t(x)=0.5$的雾图暗通道进行对比。<br><img src="https://img-blog.csdnimg.cn/20190411163043821.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"></p><hr><h2 id="基于暗通道的去雾算法"><a href="#基于暗通道的去雾算法" class="headerlink" title="基于暗通道的去雾算法"></a>基于暗通道的去雾算法</h2><p><font face="微软雅黑">首先假设大气光成分A已知。去雾模型（2）可以化为以下方程：$$\frac{I^c(x)}{A^c}=t(x)\frac{J^c(x)}{A^c}+1-t(x).\tag3$$</p><p>上标$c$即表示r,g,b三通道。进一步假设每个滤波窗口内的透射率$t(x)$是常数，记为$\bar t(x)$。然后对方程两边同时计算暗通道，即作两次最小值运算，可得下式：</p><p>$$\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c})=\bar t(x)\min_{y\in \Omega (x)}(\min_c\frac{J^c(y)}{A^c})+1-\bar t(x).\tag4$$</p><p>因为$\bar t(x)$是常量，因此放在最小运算外面。<br>根据暗通道先验，$J$趋近于零：</p><p>$$J^{dark}(x)=\min_{y\in\Omega (x)}(\min_cJ^c(y))=0\tag5$$</p><p>因为$A^c$总是正值，可得：</p><p>$$\min_{y\in \Omega (x)}(\min_c\frac{J^c(y)}{A^c})=0.\tag6$$</p><p>将式(6)代回式(4)，即可简单地得到透射率估计值：</p><p>$$\bar t(x)=1-\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c}).\tag7$$</p><p>同时，即使是晴天，大气光成分还是存在的，尤其是在看远处的物体时给人的感觉更强。这种大气光成分会给人一种景深的层次感，去雾要有所保留。因此，引入一个常量参数$\omega (0&lt;\omega&lt;1)$用来控制去雾的程度：</p><p>$$\bar t(x)=1-\omega\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c}).\tag8$$</p><p>作者在文中建议的$\omega$为0.95。<br>&#8195;&#8195;在算法开始的地方就假设$A$是已知，那么具体如何得到A的值。作者在文中给出的方法是，在暗通道中找出前0.1%最亮的点，即透射率最小的点。对于这些点，去雾图中找到对于的点，并取它们中的所有通道最大的值作为$A$的近似。至此，透射率$t(x)$，大气光成分$A$，雾图$I$，都是已知了，就可以求解无雾图：</p><p>$$J(x)=\frac{I(x)-A}{\max(t(x),t_0)}+A\tag9$$</p><p>其中，$t_0$为一个透射率下界。由于直接恢复时，当透射率$t(x)$接近零的时候，由式(2)可知，$J(x)t(x)$也为零，这就会失去原图信息，容易引入噪声，因此设置一个下界，在雾密度很大的地方，保留一定数量的雾。$t_0$的值一般取0.1。作者还提到，去雾后的图像一般会显得比较暗淡，可以适当增加曝光以得到更好的效果。</p><hr><h2 id="导向滤波"><a href="#导向滤波" class="headerlink" title="导向滤波"></a>导向滤波</h2><p><font face="微软雅黑">&#8195;&#8195;以原图灰度图作为导向图，对透射率图进行导向滤波，可以得到非常精细的透射率图，从而得到高质量的去雾图。这里再以之前人为生成的“雾图”说明导向滤波的效果。<br><img src="https://img-blog.csdnimg.cn/2019041121200278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+          <category> 图像处理 </category>
+          
+          <category> 去雾 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 去雾 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Guided Filter(引导滤波)</title>
+      <link href="/2019/05/05/GuideFilter/"/>
+      <url>/2019/05/05/GuideFilter/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/weixin_43194305/article/details/88959183" target="_blank" rel="noopener">原文首发于CSDN</a></p><h2 id="导向滤波"><a href="#导向滤波" class="headerlink" title="导向滤波"></a>导向滤波</h2><blockquote><p>Guided Image Filtering - <a href="http://kaiminghe.com/" target="_blank" rel="noopener">He Kaiming</a> 2009</p></blockquote><p><font face="微软雅黑">&#8195;&#8195;导向滤波（Guided Filtering）和双边滤波（BF）、最小二乘滤波（WLS）是三大边缘保持（Edge-perserving）滤波器。当然，引导滤波的功能不仅仅是边缘保持，只有当引导图是原图的时候，它就成了一个边缘保持滤波器。<br>&#8195;&#8195;它在图像去雾，图像抠图上均有相应的应用。</p><hr><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><div align=center><img  src="https://img-blog.csdnimg.cn/20190430123252187.jpg"/></div><font face="微软雅黑">&#8195;&#8195;对于一个输入的图像$p$，通过引导图像$I$，经过滤波后得到输出图像$q$，其中$p$和$I$都是算法的输入。引导滤波定义了如下所示的一个线性滤波过程，对于$i$位置的像素点，得到的滤波输出是一个加权平均值：$$q_i=\sum_j W_{ij}(I)pj, \tag1$$其中，$i$和$j$分别表示像素下标。$W_{ij}$是只和引导图像$I$相关的滤波核。该滤波器相对于$p$是线性的。<font face="微软雅黑">&#8195;&#8195;导向滤波的一个重要假设是输出图像$q$和引导图像$I$在滤波窗口$w_k$上存在局部线性关系：$$q_i=a_kI_i+b_k,\forall i\in w_k,\tag2$$对于一个以$r$为半径的确定的窗口$w_k$，（$a_k$，$b_k$）也将是唯一确定的常量系数。这就保证了在一个局部区域里，如果引导图像$I$有一个边缘的时候，输出图像$q$也保持边缘不变，因为对于相邻的像素点而言，存在$\nabla q=a\nabla I$。因此只要求解得到了系数$a$，$b$也就得到了输出$q$。同时认为输入图像中非边缘区域又不平滑的地方视为噪声$n$，就有$q_i=p_i-n_i$。最终的目标就是最小化这个噪声。对于每一个滤波窗口，该算法在最小二乘意义上的最优化可表示为$$argmin \sum_{i\in w_k}(q_i-p_i)^2 \\ argmin \sum_{i\in w_k}(a_kI_i+b_k-p_i)^2 \tag3$$最后，引入一个正则化参数$\epsilon$避免$a_k$过大，得到滤波窗口内的损失函数：$$E(a_k,b_k)=\sum_{i\in w_k}((a_kI_i+b_k-p_i)^2+\epsilon a_k^2).\tag4$$求解最优化过程（对参数求偏导）：$$\frac {\delta E}{a_k}=\sum_{i\in w_k}(2(a_kI_i+b_k-p_i)(I_i)+2\epsilon a_k)=0 $$$$ \frac {\delta E}{b_k}=\sum_{i\in w_k}(2(a_kI_i+b_k-p_i))=0$$$$a_k =\frac{\sum_{i\in w_k}p_iI_i-b_k\sum_{i\in w_k}I_i}{\sum_{i\in w_k}(I_i+\epsilon)} $$$$ b_k=\sum_{i\in w_k}p_i-a_k\sum_{i\in w_k}I_i$$将$b_k$代入$a_k$，整理可得：$$a_k =\cfrac{\cfrac{1}{\left| w\right|}\sum_{i\in w_k}I_ip_i-\mu _k\bar p_k}{\sigma _k^2+\epsilon}\tag5$$$$b_k = \bar p_k-a_k\mu_k.\tag6$$在这里，$\mu_k$和$\sigma_k^2$分别表示引导图像$I$在窗口$w_k$中的平均值和方差，$|w|$是窗口$w_k$中像素点的个数，$\bar p_k=\frac{1}{|w|}\sum_{i\in w_k}p_i$是输入图像在窗口$w_k$中的平均值。<font face="微软雅黑">&#8195;&#8195;接下来，只要把上述线性模型应用到整个图像的滤波窗口。但是可以看到，每一个像素点会被包含在多个窗口里。比如，如果用3*3的窗口滤波，那么除了边缘区域的每个点都会被包含在9个窗口里。因此，对于不同的窗口，我们将会得到$|w|$个$q_i$值，就对所有的$q_i$值取平均，得到最终结果：$$q_i=\frac{1}{|w|}\sum_{k:i\in w_k}(a_kI_i+b_k)\tag7$$$$\ \ =\bar a_iI_i+\bar b_i\tag8$$其中$\bar a_i=\frac{1}{|w|}\sum_{k:i\in w_k}a_k$，$\bar b_i=\frac{1}{|w|}\sum_{k:i\in w_k}b_k$。由此建立了每个像素点从$I$到$q$的映射。***## 边缘保持<p><font face="微软雅黑">&#8195;&#8195;对于该算法，当$I=p$时，即输入图像和引导图像是同一副图像时，该算法即成为一个边缘保持滤波器。同时，方程的解也可作如下表示：<br>$$a_k =\cfrac{\sigma _k^2}{\sigma _k^2+\epsilon}$$$$b_k = (1-a_k)\bar p_k$$<br>从中可以看出，$\epsilon$在这里相当于界定平滑区域和边缘区域的阈值。</p><p>考虑以下两种情况：</p><ul><li>Case 1：平坦区域。如果在某个滤波窗口内，该区域是相对平滑的，方差$\sigma _k^2$将远远小于$\epsilon$。从而$a_k\approx0,b_k\approx\bar p_k$。相当于对该区域作均值滤波。</li><li>Case 2：高方差区域。相反，如果该区域是边缘区域，方差很大，$\sigma _k^2$将远远大于$\epsilon$。从而$a_k\approx1,b_k\approx0$。相当于在区域保持原有梯度。</li></ul><p>&#8195;&#8195;</p><hr><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="1、以自身作为引导图的保边平滑滤波："><a href="#1、以自身作为引导图的保边平滑滤波：" class="headerlink" title="1、以自身作为引导图的保边平滑滤波："></a>1、以自身作为引导图的保边平滑滤波：</h3><div align=center><img  src="https://img-blog.csdnimg.cn/20190430132407202.jpg"/></div>### 2、[以原图引导的对透射率滤波的暗通道去雾](https://blog.csdn.net/weixin_43194305/article/details/89206379)### 3、[以原图引导的对权重图滤波的引导图像融合](https://blog.csdn.net/weixin_43194305/article/details/90678312)]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图像处理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>基于WLS和BF的RGB-NIR图像融合</title>
+      <link href="/2019/03/20/BFWLS/"/>
+      <url>/2019/03/20/BFWLS/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>原文：<a href="https://www.researchgate.net/publication/318676335_RGB-NIR_Image_Enhancement_by_Fusing_Bilateral_and_Weighted_Least_Squares_Filters?ev=auth_pub" target="_blank" rel="noopener">RGB-NIR Image Enhancement by Fusing Bilateral and Weighted Least Squares Filters</a> - 2017</p></blockquote><blockquote><p>BF：<a href="https://users.soe.ucsc.edu/~manduchi/Papers/ICCV98.pdf" target="_blank" rel="noopener">Bilateral Filtering for Gray and Color Images</a> - 1998</p></blockquote><blockquote><p>WLS：<a href="http://www.cs.huji.ac.il/~danix/epd/" target="_blank" rel="noopener">Edge-Preserving Decompositions for Multi-Scale Tone and Detail Manipulation</a> - 2008</p></blockquote><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>&#160; &#160; &#160; &#160;本文利用双边滤波器和加权最小二乘滤波器对RGB图像和NIR图像进行融合，核心思想即提取NIR图像中的细节层，与之将RGB的基础层，即相对平滑的部分相加，得到融合后的图片。</p><p>&#160; &#160; &#160; &#160;对于BF和WLS不甚了解的，可以自行查找相关资料，加权最小二乘滤波WLS（weighted least squares）加上双边滤波，引导滤波是三种较为经典的边缘保持性滤波算法，其改进方法和相关资料也有很多。本文仅使用BF和WLS。WLS中的数学描述也值得品味，在此贴出几篇关于WLS的参考博文。<br><r></r><br>&#160; &#160; &#160; &#160;[1:<a href="https://blog.csdn.net/piaoxuezhong/article/details/78396498]" target="_blank" rel="noopener">https://blog.csdn.net/piaoxuezhong/article/details/78396498]</a><br>&#160; &#160; &#160; &#160;[2:<a href="https://blog.csdn.net/victoriaw/article/details/71171813]" target="_blank" rel="noopener">https://blog.csdn.net/victoriaw/article/details/71171813]</a></p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>&#160; &#160; &#160; &#160;在这两个滤波器的支持下，本文的实现就较为简单了。作者将本文的方法称为<strong>BFWLS</strong>，本质上只是两种方法的结合。作者提出BF在某一尺度上具有很好的提取能力，而WLS在多尺度细节上的提取能力更强，综合两者的优点，可以提取更多潜在的细节。如下是作者在论文中贴出的操作流程。<br><img src="https://img-blog.csdnimg.cn/20190320111648231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&#160; &#160; &#160; &#160;此处，由于RGB图像是在YCbCr颜色空间上操作了，这里的Y代表了图像的亮度信息。因此，我们可以将NIR图像也视为强度信息或者亮度信息。后面用到的$d$指图像细节层（detail），$b$指基础层（base）。<br>&#160; &#160; &#160; &#160;<strong>Step1</strong>：此处将NIR图像标记为<kbd>$Y_{nir}$</kbd>，分别用两个滤波器对NIR图像滤波，将会得到两张滤波后的平滑图像<kbd>$Y_{WLS}^b$</kbd>和<kbd>$Y_{BF}^b$</kbd>。而细节层的图像可以分别简单得通过原图减去基础层的图像得到，即<kbd>$I_{nir}-Y_?^b$</kbd>得到<kbd>$Y_{WLS}^d$</kbd>和<kbd>$Y_{BF}^d$</kbd>。对两个细节层做一次平均得到<kbd>$Y^d$</kbd>，这就是我们从NIR图像中提取出来的细节信息。<br>&#160; &#160; &#160; &#160;<strong>Step2</strong>：将RGB图像转到YCbCr空间（<a href="https://baike.baidu.com/item/YCbCr/10012133?fr=aladdin" target="_blank" rel="noopener">YCbCr</a>），单独拿出Y层，对其做一次WLS滤波，滤波结果为<kbd>$Y_{WLS}^b$</kbd>，与第一步得到的<kbd>$Y^d$</kbd>相加就是我们融合后新图像在YCbCr空间下的Y层。<br>&#160; &#160; &#160; &#160;<strong>Step3</strong>：将新的Y层和原先的CbCr层重新组合并转化回RGB空间。就是本算法的结果，下面看一下融合效果。</p><h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>RGB：<br><img src="https://img-blog.csdnimg.cn/20190320184607907.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_FFFFFF,t_70" alt="RGB图像"><br>NIR：<br><img src="https://img-blog.csdnimg.cn/2019032018462331.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_FFFFFF,t_70" alt="NIR图像"><br>融合后：<br><img src="https://img-blog.csdnimg.cn/20190430152516484.png" alt="在这里插入图片描述"><br>对比：<br><img src="https://img-blog.csdnimg.cn/20190430152610947.png" alt="在这里插入图片描述"><br>&#160;&#160;&#160;&#160;==<strong>可以明显得看到，远山和天空云朵的细节被增强了。</strong>==</p><p><r></r><br><r></r></p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://blog.csdn.net/weixin_43194305/article/details/93035340" target="_blank" rel="noopener">图像融合专题</a><br> <a href="http://matthewalunbrown.com/nirscene/nirscene.html" target="_blank" rel="noopener">RGB+NIR数据集下载</a><br> <a href="https://github.com/entropyzeroo/ImageFusion" target="_blank" rel="noopener">代码</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+          <category> 图像融合 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NIR </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/1995/09/07/Hello-World/"/>
+      <url>/1995/09/07/Hello-World/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>Hello！你好！こんにちは！안녕하세요！</p><a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 开天辟地 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
