@@ -1196,7 +1196,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #9d11ff;
+  background: #9cff11;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1595,6 +1595,9 @@ pre .javascript .function {
   padding: 25px;
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
+.posts-expand .post-body {
+  margin: auto;
 }
 .posts-collapse {
   margin-left: 55px;
