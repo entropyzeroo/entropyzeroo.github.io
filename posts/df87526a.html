@@ -295,60 +295,74 @@
         <h3 id="Gray-Edge假设及其一般性计算框架"><a href="#Gray-Edge假设及其一般性计算框架" class="headerlink" title="Gray Edge假设及其一般性计算框架"></a>Gray Edge假设及其一般性计算框架</h3><p>&emsp;&emsp;有关MaxRGB，GrayWorld算法的回顾，可以参考<a href="/posts/26a617fd.html" title="白平衡算法">白平衡算法</a>。<a href="https://blog.csdn.net/weixin_43194305/article/details/101794682" target="_blank" rel="noopener">CSDN原始发布</a>。</p>
 <h4 id="Gray-Edge假设"><a href="#Gray-Edge假设" class="headerlink" title="Gray Edge假设"></a>Gray Edge假设</h4><p>&emsp;&emsp;MaxRGB，GrayWorld等算法都是基于原始图像的特征提出的。之后，Weijer等人通过观察对立颜色空间的图像颜色导数分布，发现图像的颜色导数在对立颜色空间呈一定规则。这里说到的对立颜色空间是根据颜色对抗学说建立的一个颜色空间，对立颜色空间的获得是从RGB空间做一个变换得到，具体有关对立颜色空间和颜色对抗学说的内容可移步<a href="https://en.wikipedia.org/wiki/Opponent_process" target="_blank" rel="noopener"><strong>维基百科</strong></a>。</p>
 <p>&emsp;&emsp;根据图像颜色在这个空间上的一些特性，Weijer提出了一种新的Gray Edge假说：场景中所有物理表面的平均反射的差分是无色差的。同时，为了兼容几大基本算法，闵可夫斯基范式也被引入，得到了一个更为通用的颜色恒常性计算的算法框架，其最终的数学形式为：</p>
-<p>$$(\int |\frac{\partial^nf^\sigma(X)}{\partial X^n}|^p dX)^{1/p}=ke^{n,p,\sigma}\tag1$$</p>
-<p>其中$f^n=f\otimes G^\sigma$，表示图像$f$与高斯滤波器$G^\sigma$的卷积；$\partial^n/\partial X^n$表示$n$阶导数过程。选择不同的$n,p,\sigma$参数，分别包含了几大基础算法，如下表所示。</p>
+<script type="math/tex; mode=display">(\int |\frac{\partial^nf^\sigma(X)}{\partial X^n}|^p dX)^{1/p}=ke^{n,p,\sigma}\tag1</script><p>其中$f^n=f\otimes G^\sigma$，表示图像$f$与高斯滤波器$G^\sigma$的卷积；$\partial^n/\partial X^n$表示$n$阶导数过程。选择不同的$n,p,\sigma$参数，分别包含了几大基础算法，如下表所示。</p>
 <center><b>Gray Edge框架下的颜色恒常性算法</b></center>
 
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">算法</th>
-<th align="left">参数</th>
-<th align="left">公式</th>
+<th style="text-align:left">算法</th>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">公式</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">Gray World</td>
-<td align="left">$e^{0,1,0}$</td>
-<td align="left">$(\int f(X)dX)=ke$</td>
+<tbody>
+<tr>
+<td style="text-align:left">Gray World</td>
+<td style="text-align:left">$e^{0,1,0}$</td>
+<td style="text-align:left">$(\int f(X)dX)=ke$</td>
 </tr>
 <tr>
-<td align="left">MaxRGB</td>
-<td align="left">$e^{0,\infty,0}$</td>
-<td align="left">$(\int |f(X)|^\infty dX)^\frac{1}{\infty}=ke$</td>
+<td style="text-align:left">MaxRGB</td>
+<td style="text-align:left">$e^{0,\infty,0}$</td>
+<td style="text-align:left">$(\int \</td>
+<td>f(X)\</td>
+<td>^\infty dX)^\frac{1}{\infty}=ke$</td>
 </tr>
 <tr>
-<td align="left">Shades of Gray</td>
-<td align="left">$e^{0,p,0}$</td>
-<td align="left">$(\int |f(X)|^p dX)^\frac{1}{p}=ke$</td>
+<td style="text-align:left">Shades of Gray</td>
+<td style="text-align:left">$e^{0,p,0}$</td>
+<td style="text-align:left">$(\int \</td>
+<td>f(X)\</td>
+<td>^p dX)^\frac{1}{p}=ke$</td>
 </tr>
 <tr>
-<td align="left">Gauss Gray World</td>
-<td align="left">$e^{0,p,\sigma}$</td>
-<td align="left">$(\int |f^\sigma(X)|^pdX)^\frac{1}{p}=ke$</td>
+<td style="text-align:left">Gauss Gray World</td>
+<td style="text-align:left">$e^{0,p,\sigma}$</td>
+<td style="text-align:left">$(\int \</td>
+<td>f^\sigma(X)\</td>
+<td>^pdX)^\frac{1}{p}=ke$</td>
 </tr>
 <tr>
-<td align="left">1st Order Gray Edge</td>
-<td align="left">$e^{1,p,\sigma}$</td>
-<td align="left">$(\int |f^\sigma_X(X)|^pdX)^\frac{1}{p}=ke$</td>
+<td style="text-align:left">1st Order Gray Edge</td>
+<td style="text-align:left">$e^{1,p,\sigma}$</td>
+<td style="text-align:left">$(\int \</td>
+<td>f^\sigma_X(X)\</td>
+<td>^pdX)^\frac{1}{p}=ke$</td>
 </tr>
 <tr>
-<td align="left">max Edge</td>
-<td align="left">$e^{1,\infty,\sigma}$</td>
-<td align="left">$(\int |f^\sigma_X(X)|^\infty dX)^\frac{1}{\infty}=ke$</td>
+<td style="text-align:left">max Edge</td>
+<td style="text-align:left">$e^{1,\infty,\sigma}$</td>
+<td style="text-align:left">$(\int \</td>
+<td>f^\sigma_X(X)\</td>
+<td>^\infty dX)^\frac{1}{\infty}=ke$</td>
 </tr>
 <tr>
-<td align="left">2nd Order Gray Edge</td>
-<td align="left">$e^{2,p,\sigma}$</td>
-<td align="left">$(\int|f^\sigma_{XX}(X)|^pdX)^\frac{1}{p}=ke$</td>
+<td style="text-align:left">2nd Order Gray Edge</td>
+<td style="text-align:left">$e^{2,p,\sigma}$</td>
+<td style="text-align:left">$(\int\</td>
+<td>f^\sigma_{XX}(X)\</td>
+<td>^pdX)^\frac{1}{p}=ke$</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>&emsp;&emsp;当然，即使Gray World假设来源于对立颜色空间，但是所有处理依旧是在RGB颜色空间进行的。Gray Edge的重要意义在于把原来在0阶图像上进行的颜色恒常性计算推广到了高阶上。</p>
 <h4 id="Matlab代码"><a href="#Matlab代码" class="headerlink" title="Matlab代码"></a>Matlab代码</h4><p>以下是自己写的一个简易版的代码，固定了只求1阶导数。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span> = <span class="title">GrayEdge</span><span class="params">(im,p,sigma)</span></span></span><br><span class="line"><span class="comment">% Image should be normalized to 0-1</span></span><br><span class="line"><span class="comment">% n    图像阶数         固定1,这里图像导数的来源有待考证</span></span><br><span class="line"><span class="comment">% p    Minkowski范数    默认6</span></span><br><span class="line"><span class="comment">% alpha 高斯滤波尺度    默认2</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"></span><br><span class="line">out = im;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ~exist(<span class="string">'p'</span>,<span class="string">'var'</span>)</span><br><span class="line">    p=<span class="number">6</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">if</span> ~exist(<span class="string">'alpha'</span>,<span class="string">'var'</span>)</span><br><span class="line">    sigma=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">k = fspecial(<span class="string">'gaussian'</span>,<span class="built_in">floor</span>(sigma*<span class="number">3</span>+<span class="number">0.5</span>),sigma);<span class="comment">%创建高斯模板</span></span><br><span class="line">im_G = imfilter(im,k,<span class="string">'replicate'</span>);<span class="comment">%高斯滤波</span></span><br><span class="line">im_edge = gradient(im_G);<span class="comment">%求一阶图像</span></span><br><span class="line">im_edge = <span class="built_in">abs</span>(im_edge).^p;<span class="comment">%闵可夫斯基p范式</span></span><br><span class="line"></span><br><span class="line">r = im_edge(:,:,<span class="number">1</span>);</span><br><span class="line">g = im_edge(:,:,<span class="number">2</span>);</span><br><span class="line">b = im_edge(:,:,<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">Avg = <span class="built_in">mean</span>(im_edge(:)).^(<span class="number">1</span>/p);<span class="comment">%计算出来的光照颜色</span></span><br><span class="line"></span><br><span class="line">R_avg = mean2(r).^(<span class="number">1</span>/p);<span class="comment">%各通道</span></span><br><span class="line">G_avg = mean2(g).^(<span class="number">1</span>/p);</span><br><span class="line">B_avg = mean2(b).^(<span class="number">1</span>/p);</span><br><span class="line"></span><br><span class="line">k = [R_avg G_avg B_avg]./Avg;<span class="comment">%增益k</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:<span class="number">3</span></span><br><span class="line">out(:,:,<span class="built_in">i</span>) = im(:,:,<span class="built_in">i</span>)/k(<span class="built_in">i</span>);</span><br><span class="line">out(:,:,<span class="built_in">i</span>) = <span class="built_in">min</span>(out(:,:,<span class="built_in">i</span>),<span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
 <h4 id="结果比较"><a href="#结果比较" class="headerlink" title="结果比较"></a>结果比较</h4><p><img src="https://img-blog.csdnimg.cn/20190930213825195.jpg#pic_center" alt=""></p>
-<h4 id="一般化计算框架"><a href="#一般化计算框架" class="headerlink" title="一般化计算框架"></a>一般化计算框架</h4><p>&emsp;&emsp;针对以上几种方法，在<a href="http://colorconstancy.com/" target="_blank" rel="noopener">Color Constancy</a>网站上给出了一般化框架代码，写的稍微有点复杂，就也没看很仔细，点击<a href="https://sl-m-ssl.xunlei.com/h5/page/download-share/index.html?entry=link&appType=PC&videobtindex=-1&storid=50597fa04d" target="_blank" rel="noopener">源代码下载</a>。</p>
+<h4 id="一般化计算框架"><a href="#一般化计算框架" class="headerlink" title="一般化计算框架"></a>一般化计算框架</h4><p>&emsp;&emsp;针对以上几种方法，在<a href="http://colorconstancy.com/" target="_blank" rel="noopener">Color Constancy</a>网站上给出了一般化框架代码，写的稍微有点复杂，就也没看很仔细，点击<a href="https://sl-m-ssl.xunlei.com/h5/page/download-share/index.html?entry=link&amp;appType=PC&amp;videobtindex=-1&amp;storid=50597fa04d" target="_blank" rel="noopener">源代码下载</a>。</p>
 <h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p>[1]王金华, 李兵, 须德. 图像理解:颜色认知计算[M]. 清华大学出版社, 2013.</p>
 <p>[2] <a href="http://colorconstancy.com/" target="_blank" rel="noopener">Color Constancy</a></p>
 
