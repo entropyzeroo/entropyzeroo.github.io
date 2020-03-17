@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/4.png">
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/5.png">
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/6.png">
-<meta property="og:image" content="c:/Users/lsf/AppData/Roaming/Typora/typora-user-images/image-20200317095339615.png">
+<meta property="og:image" content="c:%5CUsers%5Clsf%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200317095339615.png">
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/7.png">
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/8.png">
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/9.png">
@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/11.png">
 <meta property="og:image" content="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/12.png">
 <meta property="article:published_time" content="2020-03-09T12:00:01.000Z">
-<meta property="article:modified_time" content="2020-03-17T06:57:28.846Z">
+<meta property="article:modified_time" content="2020-03-17T07:32:08.247Z">
 <meta property="article:author" content="LSF">
 <meta property="article:tag" content="PossionEdit">
 <meta property="article:tag" content="泊松融合">
@@ -240,7 +240,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-17 14:57:28" itemprop="dateModified" datetime="2020-03-17T14:57:28+08:00">2020-03-17</time>
+                <time title="修改时间：2020-03-17 15:32:08" itemprop="dateModified" datetime="2020-03-17T15:32:08+08:00">2020-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -290,14 +290,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6k</span>
+              <span>6.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -312,6 +312,7 @@
         <p><img src="http://q70i1gfoc.bkt.clouddn.com/possion/example.png" alt="Example"></p>
 <p>虽然是2003年的文章了，但是由于其扎实的数学基础和至今看来都极其出色的效果，对每一个图像处理领域的学习者仍然是一篇值得一读的好文章。</p>
 <a id="more"></a>
+
 <p><strong>本文首发于本站，转载请注明来源</strong></p>
 <p>文章内容为参考论文原文与网络相关内容的个人理解，如有错误，请在评论区指出。</p>
 <blockquote>
@@ -320,7 +321,11 @@
 <h2 id="泊松图像编辑"><a href="#泊松图像编辑" class="headerlink" title="泊松图像编辑"></a>泊松图像编辑</h2><p>有兴趣的朋友可以详细了解一下泊松方程的来历及其数学原理，在这里给几个可供参考的链接。</p>
 <blockquote>
 <p><a href="https://www.cnblogs.com/herenzhiming/articles/5284514.html" target="_blank" rel="noopener">泊松方程的理论推导</a></p>
+</blockquote>
+<blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/68349210" target="_blank" rel="noopener">从泊松方程的解法，聊到泊松图像融合</a></p>
+</blockquote>
+<blockquote>
 <p><a href="https://blog.csdn.net/hjimce/article/details/45716603" target="_blank" rel="noopener">图像融合(1)Seamless cloning</a></p>
 </blockquote>
 <p>我看网络上很多相关解读都是直接从泊松融合入手，其实这并不是泊松图像编辑的本质内容，只能算是一个非常惊艳的应用方法。泊松图像编辑的本质是修改图像的梯度，然后通过泊松方程解最优化问题，从新的梯度恢复出修改后的图像。其梯度的修改可以包括很多种：改变梯度来源（泊松融合）、对梯度频带截断（去纹理）、调整不同通道梯度比例（改变颜色）等等，文章将会对这些应用都有基础的介绍。</p>
@@ -332,8 +337,9 @@
 <li>填补内容的边界像素值和现有的$S$一致，即要无缝过度</li>
 </ul>
 <p>那要满足上述两个要求，就得到了以下的数学表达：</p>
-<script type="math/tex; mode=display">\underset{f}{min}\iint_{\Omega}\left|\nabla f\right|^2\quad with\quad f|_{\part\Omega}=f^*|_{\part\Omega} \tag1</script><p>其中$\nabla$是一阶微分，即梯度算子。那这个式子其实就是按照上面两个条件列出来的，意思就是在$\Omega$区域梯度尽可能小（平滑），满足边界上像素相等的约束条件（无缝过度）。而上述最优化问题的解满足欧拉-拉格朗日方程：</p>
-<p>$\Delta f=0\quad over \quad \Omega \quad with \quad f|<em>{\part\Omega}=f^*|</em>{\part\Omega} \tag2$</p>
+<p>$\underset{f}{min}\iint_{\Omega}\left|\nabla f\right|^2 \text{ with } f|_{\partial\Omega}=f^*|_{\partial\Omega} \tag1$</p>
+<p>其中$\nabla$是一阶微分，即梯度算子。那这个式子其实就是按照上面两个条件列出来的，意思就是在$\Omega$区域梯度尽可能小（平滑），满足边界上像素相等的约束条件（无缝过度）。而上述最优化问题的解满足欧拉-拉格朗日方程：</p>
+<p>$\Delta f=0 \text{ over }  \Omega  \text{ with }  f|_{\partial\Omega}=f^*|_{\partial\Omega} \tag2$</p>
 <p>其中$\Delta$表示二阶微分（直角坐标系下的散度<strong>div</strong>），即拉普拉斯算子，也就是二阶梯度$\nabla ^2$，学过图像处理的朋友应该很熟悉。而这个时候的边界条件就称为<strong>狄利克雷边界(Dirichlet boundary)</strong>。众所周知，取得一阶微分极值时，二阶微分等于0。所以要在梯度取最小的时候，就要在使得散度为0，因此就有了上式。已知区域$\Omega$内的散度都是0，以及边界上已知的像素值，即可求出$\Omega$内部所有像素值，根据以上方程填充的图像将会是以下结果。</p>
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/2.png" alt="lap"></p>
 <p>上图从左到右分别为原图、填充区域、复原图。</p>
@@ -347,17 +353,17 @@
 <li>填补内容的边界像素值和现有的$S$一致，即要无缝过度</li>
 </ul>
 <p>与式(1)和式(2)相对应的，现在我们得出了新的最优化问题：</p>
-<p>$\underset{f}{min}\iint<em>{\Omega}\left|\nabla f-\mathbf{v}\right|^2\quad with\quad f|</em>{\part\Omega}=f^*|_{\part\Omega} \tag3$</p>
+<p>$\underset{f}{min}\iint_{\Omega}\left|\nabla f-\mathbf{v}\right|^2 \text{ with }  f|_{\partial\Omega}=f^*|_{\partial\Omega} \tag3$</p>
 <p>同样的，该问题在狄利克雷边界约束下的泊松方程为：</p>
-<p>$\Delta f=\rm{div}\bold v\quad over \quad \Omega \quad with \quad f|<em>{\part\Omega}=f^*|</em>{\part\Omega} \tag4$</p>
+<p>$\Delta f=\rm{div}\mathbf{v} \text{ over }  \Omega  \text{ with }  f|_{\partial\Omega}=f^*|_{\partial\Omega} \tag4$</p>
 <p>与之前相比，改变的仅仅是等式右边变成了由$\mathbf{v}$计算的散度值而已。至于你选择用什么$\mathbf{v}$，那就根据你的需求来了。在上述式子的基础上，同样的图像，再给出一个填充的实例。</p>
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/4.png" alt="lap2"></p>
 <p>上图从左到右分别为原图、填充区域、复原图。</p>
 <blockquote>
-<p>—-不是，整半天这和原图有什么区别？</p>
-<p>—-唉，好像左右镜像了一下。</p>
-<p>—-???</p>
-<p>—-卧槽？你少拿原图来骗我</p>
+<p>—不是，整半天这和原图有什么区别？</p>
+<p>—唉，好像左右镜像了一下。</p>
+<p>—???</p>
+<p>—卧槽？你少拿原图来骗我</p>
 </blockquote>
 <p>不知道在看了结果以后，大家脑子里有没有这样的小剧场。在这里，我用的引导梯度$\mathbf{v}$就是框选区域五边形内的$\mathbf{v}$进行左右镜像后的$\mathbf{v}$。由于本来就是从原图中选择的内容，边缘梯度变化和颜色值本来就非常接近，因此在经过泊松方程重建后几乎可以做到天衣无缝的图像编辑效果。</p>
 <p>以上就是泊松图像编辑的核心内容。因为本人的数学功底比较一般，对几个方程并没有更加深入的剖析，也没有进行相关数学理论的推导，只是结合自己的理解进行了简单的分析。总之，对泊松图像编辑的总结就是：</p>
@@ -366,11 +372,11 @@
 <li>方法：解泊松方程</li>
 </ul>
 <h3 id="离散泊松方程解法"><a href="#离散泊松方程解法" class="headerlink" title="离散泊松方程解法"></a>离散泊松方程解法</h3><p>看了以上部分，应该多多少少对泊松图像编辑有了基本的认识，本部分将讲一讲离散泊松方程解法。</p>
-<p>$\Delta f=\text{div}\bold v\quad over \quad \Omega \quad with \quad f|<em>{\part\Omega}=f^*|</em>{\part\Omega}$</p>
+<p>$\Delta f=\text{div}\mathbf{v} \text{ over }  \Omega  \text{ with }  f|_{\partial\Omega}=f^*|_{\partial\Omega}$</p>
 <p>等式(4)就是泊松方程的核心了，在这里用一个简单的例子说明一下如何利用构建上述泊松方程。</p>
-<p>以一个简单的$4\times4$大小的图像进行说明，假设$X=\begin{bmatrix}x<em>1 &amp; x_2 &amp; x_3 &amp; x_4 \ x_5 &amp; x_6 &amp; x_7 &amp; x_8 \ x_9 &amp; x</em>{10} &amp; x<em>{11} &amp; x</em>{12} \ x<em>{13} &amp; x</em>{14} &amp; x<em>{15} &amp; x</em>{16} \end{bmatrix}$.</p>
-<p>其中$x<em>6,x_7,x</em>{10},x_{11}$四个点所构成的$2\times2$大小的矩阵为我们所要填充的部分，像素值未知，但是散度已知（修改后的梯度所导出的散度）。其余位置为填充边界，像素值已知。因此只需要对上述4个待求点列出泊松方程即可：</p>
-<p>$\begin{cases}x<em>2+x_5+x_7+x</em>{10}-4x<em>6=\rm{div}x_6 \ x_3+x_6+x_8+x</em>{11}-4x<em>7=\rm{div}x_7 \ x_6+x_9+x</em>{11}+x<em>{14}-4x</em>{10}=\rm{div}x<em>{10} \ x_7+x</em>{10}+x<em>{12}+x</em>{15}-4x<em>{11}=\rm{div}x</em>{11}\end{cases}$</p>
+<p>以一个简单的$4\times4$大小的图像进行说明，假设$X=\begin{bmatrix}x_1 &amp; x_2 &amp; x_3 &amp; x_4 \\\ x_5 &amp; x_6 &amp; x_7 &amp; x_8 \\\ x_9 &amp; x_{10} &amp; x_{11} &amp; x_{12} \\\ x_{13} &amp; x_{14} &amp; x_{15} &amp; x_{16} \end{bmatrix}$.</p>
+<p>其中$x_6,x_7,x_{10},x_{11}$四个点所构成的$2\times2$大小的矩阵为我们所要填充的部分，像素值未知，但是散度已知（修改后的梯度所导出的散度）。其余位置为填充边界，像素值已知。因此只需要对上述4个待求点列出泊松方程即可：</p>
+<p>$\begin{cases}x_2+x_5+x_7+x_{10}-4x_6=\rm{div}x_6 \\\ x_3+x_6+x_8+x_{11}-4x_7=\rm{div}x_7 \\\ x_6+x_9+x_{11}+x_{14}-4x_{10}=\rm{div}x_{10} \\\ x_7+x_{10}+x_{12}+x_{15}-4x_{11}=\rm{div}x_{11}\end{cases}$</p>
 <p>如上文所说，上述方程组中，右侧散度已知，左侧只有4个待求点函数值未知，4个方程刚好可以求解。</p>
 <p>上述解法利用了待求区域周围一圈的像素值，即满足狄利克雷边界条件，值得一提的是，求解泊松方程还有一种约束条件，纽曼边界。</p>
 <ul>
@@ -401,20 +407,22 @@
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/6.png" alt="ss2"></p>
 <p>背景木板上其实是有很多细节的，而我们截图的文字背景是非常平滑的单一颜色，因此引导梯度场可以说是基本都为0，最后导致了融合后的文字背景也非常平滑。那这样的结果显然不是我们期望的，我们希望既能将文字添加上去，又能保留木板上的纹理细节。论文中当然也提到了这部分，就是混合梯度融合。</p>
 <h3 id="Mixing-Gradients-Seamless-Cloning"><a href="#Mixing-Gradients-Seamless-Cloning" class="headerlink" title="Mixing Gradients Seamless Cloning"></a>Mixing Gradients Seamless Cloning</h3><p>那要怎么做呢？还记得之前说的，图像编辑的本质是修改梯度。我们现在的做法是从一张图片中提取梯度，然后完全覆盖到背景图上去，现在我们想要保留两者中各自的高频细节，那相应的引导向量场就用两者较大的部分。</p>
-<p><img src="C:\Users\lsf\AppData\Roaming\Typora\typora-user-images\image-20200317095339615.png" alt="image-20200317095339615"></p>
+<p><img src="C:%5CUsers%5Clsf%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200317095339615.png" alt="image-20200317095339615"></p>
 <p>这一步需要先判断梯度的大小，然后取绝对值较大的梯度，然后根据新的梯度求取散度，再代入泊松方程求解，就可以得到以下结果。</p>
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/7.png" alt="mss"></p>
 <p>OK，大功告成，这样看起来就舒服多了。当然，实际使用的时候还是要根据需求来，并不一定说混合梯度的效果绝对要比单一梯度效果好。如果有需求，甚至可以设计自适应加权的梯度修改方法。</p>
 <h3 id="Texture-flattening"><a href="#Texture-flattening" class="headerlink" title="Texture flattening"></a>Texture flattening</h3><p>到了现在，大家应该都明白如何操作梯度来得到自己想要的结果了。那去纹理的意思显然就是把图像中的一部分纹理移除，同样的，在梯度修改时，我们直接放弃一部分梯度，所以对待求区域的每一个点作如下操作。</p>
-<p>$\text{for all} \ \mathbf{x} \in \Omega, \ \mathbf{v}(\mathbf{x})=M(\mathbf{x})\nabla f^*(\mathbf{x})$,</p>
+<p>$\text{for all}  \mathbf{x} \in \Omega,  \mathbf{v}(\mathbf{x})=M(\mathbf{x})\nabla f^*(\mathbf{x})$,</p>
 <p>其中$M(\mathbf{x})$是一个二值模板，即0-1，指示保留哪些梯度，删除哪些梯度。最简单的二值模板就是直接给一个阈值，只保留大于该阈值的信息或者小于该阈值的信息，下面给一个简单的例子：</p>
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/8.png" alt="Texture flattening 1"></p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grad(<span class="built_in">abs</span>(grad)&lt;<span class="number">0.08</span>)=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>emmmmm、抱歉、我的、打扰了、没控制好力度、重来、</p>
 </blockquote>
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/9.png" alt="Texture flattening 2"></p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grad(<span class="built_in">abs</span>(grad)&lt;<span class="number">0.02</span>)=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
 <p>嗯，大致效果就是这样，根据你截断的力度，会得到不同的编辑效果。直接用常数作阈值肯定是不合适的，更进一步也完全可以用自适应的方法选择保留哪部分的内容。</p>
 <p>有点类似于边缘保持滤波器的效果，控制好力度或许能用来美颜这样？</p>
 <h3 id="Local-illumination-changes"><a href="#Local-illumination-changes" class="headerlink" title="Local illumination changes"></a>Local illumination changes</h3><p>可用于图像局部对比度提高或降低，类似于HDR的应用。</p>
@@ -428,11 +436,15 @@
 <p>中间是论文给出的示例，梯度变化为：R*1.5,G/2,B/2</p>
 <p>右边是我测试的结果，梯度变化为：R用B替换</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">效果<span class="number">1</span>：</span><br><span class="line">grad(:,:,<span class="number">1</span>)=grad(:,:,<span class="number">1</span>)*<span class="number">1.5</span>;</span><br><span class="line">grad(:,:,<span class="number">2</span>)=grad(:,:,<span class="number">2</span>)/<span class="number">2</span>;</span><br><span class="line">grad(:,:,<span class="number">3</span>)=grad(:,:,<span class="number">3</span>)/<span class="number">2</span>;</span><br><span class="line">效果<span class="number">2</span>：</span><br><span class="line">grad(:,:,<span class="number">1</span>)=grad(:,:,<span class="number">3</span>);</span><br><span class="line">grad(:,:,<span class="number">2</span>)=grad(:,:,<span class="number">2</span>);</span><br><span class="line">grad(:,:,<span class="number">3</span>)=grad(:,:,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+
+
 <blockquote>
 <p>显然是右边的颜色比较好看，能否苟同？</p>
 </blockquote>
 <h3 id="Seamless-tiling"><a href="#Seamless-tiling" class="headerlink" title="Seamless tiling"></a>Seamless tiling</h3><p>论文给出的最后一个应用，对于一个矩形类内容的图像，类似补丁的一块，可以产生无缝拼接的效果。操作方法也很简单，修改图像的边界像素，就是第一行/列，最后一行/列。如：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">row_1 = <span class="number">0.5</span>*(row_1+row_end);</span><br><span class="line">row_end = row_1;</span><br><span class="line">col_1 = <span class="number">0.5</span>*(col_1+col_end);</span><br><span class="line">col_end = col_1;</span><br></pre></td></tr></table></figure>
+
 <p>即上下边界和左右边界设为原图像的边界和的一半。</p>
 <p>然后引导向量场仍然使用原图像的梯度场。这样得到的结果就可以用来无缝拼接，如下图所示：</p>
 <p><img src="http://q70i1gfoc.bkt.clouddn.com/PossionImageEdit/12.png" alt="Seamless tiling"></p>
