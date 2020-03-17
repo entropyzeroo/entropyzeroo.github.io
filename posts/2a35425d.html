@@ -307,7 +307,8 @@
 
       
         <p>本文首发于<a href="https://blog.csdn.net/weixin_43194305/article/details/89206379" target="_blank" rel="noopener">CSDN</a></p>
-<h2 id="暗通道先验"><a href="#暗通道先验" class="headerlink" title="暗通道先验"></a>暗通道先验</h2><p>暗通道先验是基于如下观察，在户外的无雾图像中，在大部分非天空区域，至少有一个通道值是很小一个数或趋近于零。因此，对任意一幅图$J$，给出暗通道$J^{dark}$的表示：<br>$$J^{dark}(X)=\min _{y\in \Omega(x)}(\min _{c\in \{r, g, b\}}J^c(Y)),\tag 1$$<br>其中两个最小是各通道最小，局部窗口最小。即首先对图像每个像素取三通道中最小值，得到一个单通道图，然后对这个单通道图作最小值滤波就可以得到暗通道图$J^{dark}$。<br>作者将造成这个现象的原因归结为以下三点：</p>
+<h2 id="暗通道先验"><a href="#暗通道先验" class="headerlink" title="暗通道先验"></a>暗通道先验</h2><p>暗通道先验是基于如下观察，在户外的无雾图像中，在大部分非天空区域，至少有一个通道值是很小一个数或趋近于零。因此，对任意一幅图$J$，给出暗通道$J^{dark}$的表示：</p>
+<script type="math/tex; mode=display">J^{dark}(X)=\min _{y\in \Omega(x)}(\min _{c\in \{r, g, b\}}J^c(Y)),\tag 1</script><p>其中两个最小是各通道最小，局部窗口最小。即首先对图像每个像素取三通道中最小值，得到一个单通道图，然后对这个单通道图作最小值滤波就可以得到暗通道图$J^{dark}$。<br>作者将造成这个现象的原因归结为以下三点：</p>
 <ul>
 <li>各类物体的阴影，玻璃</li>
 <li>彩色物体表面，如花草树木，蓝色的水面</li>
@@ -315,23 +316,17 @@
 </ul>
 <p>正因为自然界总是充满了彩色和阴影，就导致了图像暗通道总是很暗。为了验证这个先验知识，作者统计了大量图片，发现基本都符合这个先验。以下是几幅680*1024的风景图在不同大小滤波窗口下的暗通道图：<img src="https://img-blog.csdnimg.cn/20190411124336347.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190411124400882.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190411124429584.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190411124448455.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br>以上图像基本都符合暗通道先验，由此可见暗通道的普遍性。在暗通道先验的基础上，就可以进行去雾算法的推导。</p>
 <hr>
-<h2 id="雾模型分析"><a href="#雾模型分析" class="headerlink" title="雾模型分析"></a>雾模型分析</h2><p>在计算机视觉和计算机图形领域，一个常用来描述有雾图像的公式表达为：<br>$$I(x)=J(x)t(x)+A(1-t(x))\tag2$$</p>
-<p>其中，$I$表示有雾图像，$J$是要恢复的无雾的图像，$A$是全球大气光成分， $t(x)$为透射率。<br>&#8195;&#8195;在这里主要剖析一下这个式子。对这个式子，本身的理解，大气光成分和图像中的景物本身就是真实存在的。晴天和雾天的区别只是大气光成分的多少，表达在这个式子里就是透射率。晴天的时候大气光成分少，物体反射光的透射率很高，几乎让人感受不到大气光成分的存在。雾天则相反。<br>&#8195;&#8195;放在PS中理解，该模型几乎就是两个图层在不同透明度下的叠加。可以设透明度为$\alpha$。叠加后的图像为$$I=\alpha I_1+(1-\alpha)I_2$$因此，我们假设最大大气光成分为255，可以通过设置不同的透射率来产生不同的有雾图像，同样用上述的图片作实验。<br><img src="https://img-blog.csdnimg.cn/20190411161818601.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br>不过，由于人为选定的$t(x)$在每个像素上都是一致的，所以会丢失景深的感觉。但是已经足以说明雾的生成，和去雾的思路。我们已知雾图，由式（2）去求解无雾的图像。同时，我们用无雾图的暗通道和人为生成$t(x)=0.5$的雾图暗通道进行对比。<br><img src="https://img-blog.csdnimg.cn/20190411163043821.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"></p>
+<h2 id="雾模型分析"><a href="#雾模型分析" class="headerlink" title="雾模型分析"></a>雾模型分析</h2><p>在计算机视觉和计算机图形领域，一个常用来描述有雾图像的公式表达为：</p>
+<script type="math/tex; mode=display">I(x)=J(x)t(x)+A(1-t(x))\tag2</script><p>其中，$I$表示有雾图像，$J$是要恢复的无雾的图像，$A$是全球大气光成分， $t(x)$为透射率。<br>&#8195;&#8195;在这里主要剖析一下这个式子。对这个式子，本身的理解，大气光成分和图像中的景物本身就是真实存在的。晴天和雾天的区别只是大气光成分的多少，表达在这个式子里就是透射率。晴天的时候大气光成分少，物体反射光的透射率很高，几乎让人感受不到大气光成分的存在。雾天则相反。<br>&#8195;&#8195;放在PS中理解，该模型几乎就是两个图层在不同透明度下的叠加。可以设透明度为$\alpha$。叠加后的图像为<script type="math/tex">I=\alpha I_1+(1-\alpha)I_2</script>因此，我们假设最大大气光成分为255，可以通过设置不同的透射率来产生不同的有雾图像，同样用上述的图片作实验。<br><img src="https://img-blog.csdnimg.cn/20190411161818601.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"><br>不过，由于人为选定的$t(x)$在每个像素上都是一致的，所以会丢失景深的感觉。但是已经足以说明雾的生成，和去雾的思路。我们已知雾图，由式（2）去求解无雾的图像。同时，我们用无雾图的暗通道和人为生成$t(x)=0.5$的雾图暗通道进行对比。<br><img src="https://img-blog.csdnimg.cn/20190411163043821.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"></p>
 <hr>
-<h2 id="基于暗通道的去雾算法"><a href="#基于暗通道的去雾算法" class="headerlink" title="基于暗通道的去雾算法"></a>基于暗通道的去雾算法</h2><p><font face="微软雅黑">首先假设大气光成分A已知。去雾模型（2）可以化为以下方程：$$\frac{I^c(x)}{A^c}=t(x)\frac{J^c(x)}{A^c}+1-t(x).\tag3$$</p>
+<h2 id="基于暗通道的去雾算法"><a href="#基于暗通道的去雾算法" class="headerlink" title="基于暗通道的去雾算法"></a>基于暗通道的去雾算法</h2><p><font face="微软雅黑">首先假设大气光成分A已知。去雾模型（2）可以化为以下方程：<script type="math/tex">\frac{I^c(x)}{A^c}=t(x)\frac{J^c(x)}{A^c}+1-t(x).\tag3</script></p>
 <p>上标$c$即表示r,g,b三通道。进一步假设每个滤波窗口内的透射率$t(x)$是常数，记为$\bar t(x)$。然后对方程两边同时计算暗通道，即作两次最小值运算，可得下式：</p>
-<p>$$\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c})=\bar t(x)\min_{y\in \Omega (x)}(\min_c\frac{J^c(y)}{A^c})+1-\bar t(x).\tag4$$</p>
-<p>因为$\bar t(x)$是常量，因此放在最小运算外面。<br>根据暗通道先验，$J$趋近于零：</p>
-<p>$$J^{dark}(x)=\min_{y\in\Omega (x)}(\min_cJ^c(y))=0\tag5$$</p>
-<p>因为$A^c$总是正值，可得：</p>
-<p>$$\min_{y\in \Omega (x)}(\min_c\frac{J^c(y)}{A^c})=0.\tag6$$</p>
-<p>将式(6)代回式(4)，即可简单地得到透射率估计值：</p>
-<p>$$\bar t(x)=1-\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c}).\tag7$$</p>
-<p>同时，即使是晴天，大气光成分还是存在的，尤其是在看远处的物体时给人的感觉更强。这种大气光成分会给人一种景深的层次感，去雾要有所保留。因此，引入一个常量参数$\omega (0&lt;\omega&lt;1)$用来控制去雾的程度：</p>
-<p>$$\bar t(x)=1-\omega\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c}).\tag8$$</p>
-<p>作者在文中建议的$\omega$为0.95。<br>&#8195;&#8195;在算法开始的地方就假设$A$是已知，那么具体如何得到A的值。作者在文中给出的方法是，在暗通道中找出前0.1%最亮的点，即透射率最小的点。对于这些点，去雾图中找到对于的点，并取它们中的所有通道最大的值作为$A$的近似。至此，透射率$t(x)$，大气光成分$A$，雾图$I$，都是已知了，就可以求解无雾图：</p>
-<p>$$J(x)=\frac{I(x)-A}{\max(t(x),t_0)}+A\tag9$$</p>
-<p>其中，$t_0$为一个透射率下界。由于直接恢复时，当透射率$t(x)$接近零的时候，由式(2)可知，$J(x)t(x)$也为零，这就会失去原图信息，容易引入噪声，因此设置一个下界，在雾密度很大的地方，保留一定数量的雾。$t_0$的值一般取0.1。作者还提到，去雾后的图像一般会显得比较暗淡，可以适当增加曝光以得到更好的效果。</p>
+<script type="math/tex; mode=display">\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c})=\bar t(x)\min_{y\in \Omega (x)}(\min_c\frac{J^c(y)}{A^c})+1-\bar t(x).\tag4</script><p>因为$\bar t(x)$是常量，因此放在最小运算外面。<br>根据暗通道先验，$J$趋近于零：</p>
+<script type="math/tex; mode=display">J^{dark}(x)=\min_{y\in\Omega (x)}(\min_cJ^c(y))=0\tag5</script><p>因为$A^c$总是正值，可得：</p>
+<script type="math/tex; mode=display">\min_{y\in \Omega (x)}(\min_c\frac{J^c(y)}{A^c})=0.\tag6</script><p>将式(6)代回式(4)，即可简单地得到透射率估计值：</p>
+<script type="math/tex; mode=display">\bar t(x)=1-\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c}).\tag7</script><p>同时，即使是晴天，大气光成分还是存在的，尤其是在看远处的物体时给人的感觉更强。这种大气光成分会给人一种景深的层次感，去雾要有所保留。因此，引入一个常量参数$\omega (0&lt;\omega&lt;1)$用来控制去雾的程度：</p>
+<script type="math/tex; mode=display">\bar t(x)=1-\omega\min_{y\in \Omega(x)}(\min_c\frac{I^c(y)}{A^c}).\tag8</script><p>作者在文中建议的$\omega$为0.95。<br>&#8195;&#8195;在算法开始的地方就假设$A$是已知，那么具体如何得到A的值。作者在文中给出的方法是，在暗通道中找出前0.1%最亮的点，即透射率最小的点。对于这些点，去雾图中找到对于的点，并取它们中的所有通道最大的值作为$A$的近似。至此，透射率$t(x)$，大气光成分$A$，雾图$I$，都是已知了，就可以求解无雾图：</p>
+<script type="math/tex; mode=display">J(x)=\frac{I(x)-A}{\max(t(x),t_0)}+A\tag9</script><p>其中，$t_0$为一个透射率下界。由于直接恢复时，当透射率$t(x)$接近零的时候，由式(2)可知，$J(x)t(x)$也为零，这就会失去原图信息，容易引入噪声，因此设置一个下界，在雾密度很大的地方，保留一定数量的雾。$t_0$的值一般取0.1。作者还提到，去雾后的图像一般会显得比较暗淡，可以适当增加曝光以得到更好的效果。</p>
 <hr>
 <h2 id="导向滤波"><a href="#导向滤波" class="headerlink" title="导向滤波"></a>导向滤波</h2><p><font face="微软雅黑">&#8195;&#8195;以原图灰度图作为导向图，对透射率图进行导向滤波，可以得到非常精细的透射率图，从而得到高质量的去雾图。这里再以之前人为生成的“雾图”说明导向滤波的效果。<br><img src="https://img-blog.csdnimg.cn/2019041121200278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzE5NDMwNQ==,size_16,color_123456,t_70" alt="在这里插入图片描述"></p>
 

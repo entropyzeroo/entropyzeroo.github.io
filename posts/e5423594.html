@@ -302,21 +302,50 @@
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><div align=center><img  src="https://img-blog.csdnimg.cn/20190430123252187.jpg"/></div>
 &#8195;&#8195;对于一个输入的图像$p$，通过引导图像$I$，经过滤波后得到输出图像$q$，其中$p$和$I$都是算法的输入。引导滤波定义了如下所示的一个线性滤波过程，对于$i$位置的像素点，得到的滤波输出是一个加权平均值：
 
-<p>$$q_i=\sum_j W_{ij}(I)pj, \tag1$$<br>其中，$i$和$j$分别表示像素下标。$W_{ij}$是只和引导图像$I$相关的滤波核。该滤波器相对于$p$是线性的。<br>&#8195;&#8195;导向滤波的一个重要假设是输出图像$q$和引导图像$I$在滤波窗口$w_k$上存在局部线性关系：<br>$$q_i=a_kI_i+b_k,\forall i\in w_k,\tag2$$<br>对于一个以$r$为半径的确定的窗口$w_k$，（$a_k$，$b_k$）也将是唯一确定的常量系数。这就保证了在一个局部区域里，如果引导图像$I$有一个边缘的时候，输出图像$q$也保持边缘不变，因为对于相邻的像素点而言，存在$\nabla q=a\nabla I$。因此只要求解得到了系数$a$，$b$也就得到了输出$q$。同时认为输入图像中非边缘区域又不平滑的地方视为噪声$n$，就有$q_i=p_i-n_i$。最终的目标就是最小化这个噪声。对于每一个滤波窗口，该算法在最小二乘意义上的最优化可表示为</p>
-<p>$$argmin \sum_{i\in w_k}(q_i-p_i)^2 \\\ argmin \sum_{i\in w_k}(a_kI_i+b_k-p_i)^2 \tag3$$<br>最后，引入一个正则化参数$\epsilon$避免$a_k$过大，得到滤波窗口内的损失函数：<br>$$E(a_k,b_k)=\sum_{i\in w_k}((a_kI_i+b_k-p_i)^2+\epsilon a_k^2).\tag4$$<br>求解最优化过程（对参数求偏导）：<br>$$\frac {\delta E}{a_k}=\sum_{i\in w_k}(2(a_kI_i+b_k-p_i)(I_i)+2\epsilon a_k)=0 $$</p>
-<p>$$ \frac {\delta E}{b_k}=\sum_{i\in w_k}(2(a_kI_i+b_k-p_i))=0$$</p>
-<p>$$a_k =\frac{\sum_{i\in w_k}p_iI_i-b_k\sum_{i\in w_k}I_i}{\sum_{i\in w_k}(I_i+\epsilon)} $$</p>
-<p>$$ b_k=\sum_{i\in w_k}p_i-a_k\sum_{i\in w_k}I_i$$<br>将$b_k$代入$a_k$，整理可得：<br>$$a_k =\cfrac{\cfrac{1}{\left| w\right|}\sum_{i\in w_k}I_ip_i-\mu _k\bar p_k}{\sigma _k^2+\epsilon}\tag5$$<br>$$b_k = \bar p_k-a_k\mu_k.\tag6$$<br>在这里，$\mu_k$和$\sigma_k^2$分别表示引导图像$I$在窗口$w_k$中的平均值和方差，$|w|$是窗口$w_k$中像素点的个数，$\bar p_k=\frac{1}{|w|}\sum_{i\in w_k}p_i$是输入图像在窗口$w_k$中的平均值。<br><font face="微软雅黑">&#8195;&#8195;接下来，只要把上述线性模型应用到整个图像的滤波窗口。但是可以看到，每一个像素点会被包含在多个窗口里。比如，如果用3*3的窗口滤波，那么除了边缘区域的每个点都会被包含在9个窗口里。因此，对于不同的窗口，我们将会得到$|w|$个$q_i$值，就对所有的$q_i$值取平均，得到最终结果：<br>$$q_i=\frac{1}{|w|}\sum_{k:i\in w_k}(a_kI_i+b_k)\tag7$$<br>$$  =\bar a_iI_i+\bar b_i\tag8$$<br>其中$\bar a_i=\frac{1}{|w|}\sum_{k:i\in w_k}a_k$，$\bar b_i=\frac{1}{|w|}\sum_{k:i\in w_k}b_k$。由此建立了每个像素点从$I$到$q$的映射。</p>
-<hr>
-<h2 id="边缘保持"><a href="#边缘保持" class="headerlink" title="边缘保持"></a>边缘保持</h2><p><font face="微软雅黑">&#8195;&#8195;对于该算法，当$I=p$时，即输入图像和引导图像是同一副图像时，该算法即成为一个边缘保持滤波器。同时，方程的解也可作如下表示：<br>$$a_k =\cfrac{\sigma _k^2}{\sigma _k^2+\epsilon}$$$$b_k = (1-a_k)\bar p_k$$<br>从中可以看出，$\epsilon$在这里相当于界定平滑区域和边缘区域的阈值。</p>
-<p>考虑以下两种情况：</p>
-<ul>
-<li>Case 1：平坦区域。如果在某个滤波窗口内，该区域是相对平滑的，方差$\sigma _k^2$将远远小于$\epsilon$。从而$a_k\approx0,b_k\approx\bar p_k$。相当于对该区域作均值滤波。</li>
-<li>Case 2：高方差区域。相反，如果该区域是边缘区域，方差很大，$\sigma _k^2$将远远大于$\epsilon$。从而$a_k\approx1,b_k\approx0$。相当于在区域保持原有梯度。</li>
-</ul>
-<p>&#8195;&#8195;</p>
-<hr>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="1、以自身作为引导图的保边平滑滤波："><a href="#1、以自身作为引导图的保边平滑滤波：" class="headerlink" title="1、以自身作为引导图的保边平滑滤波："></a>1、以自身作为引导图的保边平滑滤波：</h3><div align=center><img  src="https://img-blog.csdnimg.cn/20190430132407202.jpg"/></div>
+$$q_i=\sum_j W_{ij}(I)pj, \tag1$$
+其中，$i$和$j$分别表示像素下标。$W_{ij}$是只和引导图像$I$相关的滤波核。该滤波器相对于$p$是线性的。
+&#8195;&#8195;导向滤波的一个重要假设是输出图像$q$和引导图像$I$在滤波窗口$w_k$上存在局部线性关系：
+$$q_i=a_kI_i+b_k,\forall i\in w_k,\tag2$$
+对于一个以$r$为半径的确定的窗口$w_k$，（$a_k$，$b_k$）也将是唯一确定的常量系数。这就保证了在一个局部区域里，如果引导图像$I$有一个边缘的时候，输出图像$q$也保持边缘不变，因为对于相邻的像素点而言，存在$\nabla q=a\nabla I$。因此只要求解得到了系数$a$，$b$也就得到了输出$q$。同时认为输入图像中非边缘区域又不平滑的地方视为噪声$n$，就有$q_i=p_i-n_i$。最终的目标就是最小化这个噪声。对于每一个滤波窗口，该算法在最小二乘意义上的最优化可表示为
+
+$$argmin \sum_{i\in w_k}(q_i-p_i)^2 \\\\ argmin \sum_{i\in w_k}(a_kI_i+b_k-p_i)^2 \tag3$$
+最后，引入一个正则化参数$\epsilon$避免$a_k$过大，得到滤波窗口内的损失函数：
+$$E(a_k,b_k)=\sum_{i\in w_k}((a_kI_i+b_k-p_i)^2+\epsilon a_k^2).\tag4$$
+求解最优化过程（对参数求偏导）：
+$$\frac {\delta E}{a_k}=\sum_{i\in w_k}(2(a_kI_i+b_k-p_i)(I_i)+2\epsilon a_k)=0 $$
+
+$$ \frac {\delta E}{b_k}=\sum_{i\in w_k}(2(a_kI_i+b_k-p_i))=0$$
+
+$$a_k =\frac{\sum_{i\in w_k}p_iI_i-b_k\sum_{i\in w_k}I_i}{\sum_{i\in w_k}(I_i+\epsilon)} $$
+
+$$ b_k=\sum_{i\in w_k}p_i-a_k\sum_{i\in w_k}I_i$$
+将$b_k$代入$a_k$，整理可得：
+$$a_k =\cfrac{\cfrac{1}{\left| w\right|}\sum_{i\in w_k}I_ip_i-\mu _k\bar p_k}{\sigma _k^2+\epsilon}\tag5$$
+$$b_k = \bar p_k-a_k\mu_k.\tag6$$
+在这里，$\mu_k$和$\sigma_k^2$分别表示引导图像$I$在窗口$w_k$中的平均值和方差，$|w|$是窗口$w_k$中像素点的个数，$\bar p_k=\frac{1}{|w|}\sum_{i\in w_k}p_i$是输入图像在窗口$w_k$中的平均值。
+<font face="微软雅黑">&#8195;&#8195;接下来，只要把上述线性模型应用到整个图像的滤波窗口。但是可以看到，每一个像素点会被包含在多个窗口里。比如，如果用3*3的窗口滤波，那么除了边缘区域的每个点都会被包含在9个窗口里。因此，对于不同的窗口，我们将会得到$|w|$个$q_i$值，就对所有的$q_i$值取平均，得到最终结果：
+$$q_i=\frac{1}{|w|}\sum_{k:i\in w_k}(a_kI_i+b_k)\tag7$$
+$$\ \ =\bar a_iI_i+\bar b_i\tag8$$
+其中$\bar a_i=\frac{1}{|w|}\sum_{k:i\in w_k}a_k$，$\bar b_i=\frac{1}{|w|}\sum_{k:i\in w_k}b_k$。由此建立了每个像素点从$I$到$q$的映射。
+
+***
+## 边缘保持
+
+<font face="微软雅黑">&#8195;&#8195;对于该算法，当$I=p$时，即输入图像和引导图像是同一副图像时，该算法即成为一个边缘保持滤波器。同时，方程的解也可作如下表示：
+$$a_k =\cfrac{\sigma _k^2}{\sigma _k^2+\epsilon}$$$$b_k = (1-a_k)\bar p_k$$
+从中可以看出，$\epsilon$在这里相当于界定平滑区域和边缘区域的阈值。
+
+考虑以下两种情况：
+- Case 1：平坦区域。如果在某个滤波窗口内，该区域是相对平滑的，方差$\sigma _k^2$将远远小于$\epsilon$。从而$a_k\approx0,b_k\approx\bar p_k$。相当于对该区域作均值滤波。
+- Case 2：高方差区域。相反，如果该区域是边缘区域，方差很大，$\sigma _k^2$将远远大于$\epsilon$。从而$a_k\approx1,b_k\approx0$。相当于在区域保持原有梯度。
+
+&#8195;&#8195;
+
+***
+## 应用
+
+### 1、以自身作为引导图的保边平滑滤波：
+<div align=center><img  src="https://img-blog.csdnimg.cn/20190430132407202.jpg"/></div>
 
 
 <h3 id="2、以原图引导的对透射率滤波的暗通道去雾"><a href="#2、以原图引导的对透射率滤波的暗通道去雾" class="headerlink" title="2、以原图引导的对透射率滤波的暗通道去雾"></a>2、<a href="https://blog.csdn.net/weixin_43194305/article/details/89206379" target="_blank" rel="noopener">以原图引导的对透射率滤波的暗通道去雾</a></h3><h3 id="3、以原图引导的对权重图滤波的引导图像融合"><a href="#3、以原图引导的对权重图滤波的引导图像融合" class="headerlink" title="3、以原图引导的对权重图滤波的引导图像融合"></a>3、<a href="https://blog.csdn.net/weixin_43194305/article/details/90678312" target="_blank" rel="noopener">以原图引导的对权重图滤波的引导图像融合</a></h3>
@@ -405,7 +434,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导向滤波"><span class="nav-text">导向滤波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边缘保持"><span class="nav-text">边缘保持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、以自身作为引导图的保边平滑滤波："><span class="nav-text">1、以自身作为引导图的保边平滑滤波：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、以原图引导的对透射率滤波的暗通道去雾"><span class="nav-text">2、以原图引导的对透射率滤波的暗通道去雾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、以原图引导的对权重图滤波的引导图像融合"><span class="nav-text">3、以原图引导的对权重图滤波的引导图像融合</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导向滤波"><span class="nav-text">导向滤波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2、以原图引导的对透射率滤波的暗通道去雾"><span class="nav-text">2、以原图引导的对透射率滤波的暗通道去雾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、以原图引导的对权重图滤波的引导图像融合"><span class="nav-text">3、以原图引导的对权重图滤波的引导图像融合</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
